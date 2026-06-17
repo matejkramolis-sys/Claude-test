@@ -1,0 +1,154 @@
+{
+ "title_hero": {
+  "file": "Zastávka Praha-Podbaba.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Zast%C3%A1vka_Praha-Podbaba.jpg/1920px-Zast%C3%A1vka_Praha-Podbaba.jpg",
+  "artist": "Jirka Dl",
+  "license": "CC BY-SA 4.0",
+  "w": 1920,
+  "h": 1282
+ },
+ "panoramio": {
+  "file": "Nádraží Praha-Podbaba - panoramio.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/N%C3%A1dra%C5%BE%C3%AD_Praha-Podbaba_-_panoramio.jpg/1920px-N%C3%A1dra%C5%BE%C3%AD_Praha-Podbaba_-_panoramio.jpg",
+  "artist": "Jiří Bernard",
+  "license": "CC BY-SA 3.0",
+  "w": 1920,
+  "h": 1080
+ },
+ "panoramio1": {
+  "file": "Nádraží Praha-Podbaba - panoramio (1).jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/N%C3%A1dra%C5%BE%C3%AD_Praha-Podbaba_-_panoramio_%281%29.jpg/1920px-N%C3%A1dra%C5%BE%C3%AD_Praha-Podbaba_-_panoramio_%281%29.jpg",
+  "artist": "Jiří Bernard",
+  "license": "CC BY-SA 3.0",
+  "w": 1920,
+  "h": 1080
+ },
+ "panoramio2": {
+  "file": "Nádraží Praha-Podbaba - panoramio (2).jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/N%C3%A1dra%C5%BE%C3%AD_Praha-Podbaba_-_panoramio_%282%29.jpg/1920px-N%C3%A1dra%C5%BE%C3%AD_Praha-Podbaba_-_panoramio_%282%29.jpg",
+  "artist": "Jiří Bernard",
+  "license": "CC BY-SA 3.0",
+  "w": 1920,
+  "h": 1080
+ },
+ "platform_underpass": {
+  "file": "Praha-Podbaba, nástupiště a podchod.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Praha-Podbaba%2C_n%C3%A1stupi%C5%A1t%C4%9B_a_podchod.jpg/1920px-Praha-Podbaba%2C_n%C3%A1stupi%C5%A1t%C4%9B_a_podchod.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "platform_prague": {
+  "file": "Praha-Podbaba, nástupiště na Prahu, podchod.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Praha-Podbaba%2C_n%C3%A1stupi%C5%A1t%C4%9B_na_Prahu%2C_podchod.jpg/1920px-Praha-Podbaba%2C_n%C3%A1stupi%C5%A1t%C4%9B_na_Prahu%2C_podchod.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1411
+ },
+ "train_to_prague": {
+  "file": "Praha-Podbaba, osobní vlak do Prahy (01).jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Praha-Podbaba%2C_osobn%C3%AD_vlak_do_Prahy_%2801%29.jpg/1920px-Praha-Podbaba%2C_osobn%C3%AD_vlak_do_Prahy_%2801%29.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1388
+ },
+ "rychlik": {
+  "file": "Praha-Podbaba, rychlík.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Praha-Podbaba%2C_rychl%C3%ADk.jpg/1920px-Praha-Podbaba%2C_rychl%C3%ADk.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1388
+ },
+ "tram": {
+  "file": "Podbabská, Nádraží Podbaba, tramvaj.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Podbabsk%C3%A1%2C_N%C3%A1dra%C5%BE%C3%AD_Podbaba%2C_tramvaj.jpg/1920px-Podbabsk%C3%A1%2C_N%C3%A1dra%C5%BE%C3%AD_Podbaba%2C_tramvaj.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "bus": {
+  "file": "Podbabská, zastávka Nádraží Podbaba, autobus.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Podbabsk%C3%A1%2C_zast%C3%A1vka_N%C3%A1dra%C5%BE%C3%AD_Podbaba%2C_autobus.jpg/1920px-Podbabsk%C3%A1%2C_zast%C3%A1vka_N%C3%A1dra%C5%BE%C3%AD_Podbaba%2C_autobus.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "tram_loop": {
+  "file": "Smyčka Nádraží Podbaba, tramvaje.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Smy%C4%8Dka_N%C3%A1dra%C5%BE%C3%AD_Podbaba%2C_tramvaje.jpg/1920px-Smy%C4%8Dka_N%C3%A1dra%C5%BE%C3%AD_Podbaba%2C_tramvaje.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "tram_loop2": {
+  "file": "Praha, Podbaba, tramvajová smyčka.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Praha%2C_Podbaba%2C_tramvajov%C3%A1_smy%C4%8Dka.jpg/1920px-Praha%2C_Podbaba%2C_tramvajov%C3%A1_smy%C4%8Dka.jpg",
+  "artist": "PatrikPaprika",
+  "license": "CC BY-SA 3.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "underpass_art": {
+  "file": "Praha-Podbaba, podchod, malby.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Praha-Podbaba%2C_podchod%2C_malby.jpg/1920px-Praha-Podbaba%2C_podchod%2C_malby.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "former_station": {
+  "file": "Bývalá zastávka Praha-Podbaba.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/B%C3%BDval%C3%A1_zast%C3%A1vka_Praha-Podbaba.jpg/1920px-B%C3%BDval%C3%A1_zast%C3%A1vka_Praha-Podbaba.jpg",
+  "artist": "ŠJů (cs:ŠJů)",
+  "license": "CC BY-SA 3.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "last_day": {
+  "file": "451 posledni den 01 podbaba.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/451_posledni_den_01_podbaba.jpg/1920px-451_posledni_den_01_podbaba.jpg",
+  "artist": "Octopus moldavicus",
+  "license": "CC BY-SA 3.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "platform_2014": {
+  "file": "Zastávka Praha-Podbaba, 2014-09-07, nástupiště.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Zast%C3%A1vka_Praha-Podbaba%2C_2014-09-07%2C_n%C3%A1stupi%C5%A1t%C4%9B.jpg/1920px-Zast%C3%A1vka_Praha-Podbaba%2C_2014-09-07%2C_n%C3%A1stupi%C5%A1t%C4%9B.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "platform_kralupy": {
+  "file": "Praha-Podbaba, zastávka, nástupiště na Kralupy.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Praha-Podbaba%2C_zast%C3%A1vka%2C_n%C3%A1stupi%C5%A1t%C4%9B_na_Kralupy.jpg/1920px-Praha-Podbaba%2C_zast%C3%A1vka%2C_n%C3%A1stupi%C5%A1t%C4%9B_na_Kralupy.jpg",
+  "artist": "ŠJů",
+  "license": "CC BY 4.0",
+  "w": 1920,
+  "h": 1440
+ },
+ "station_view": {
+  "file": "Praha, Dejvice, zastávka Podbaba VII.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Praha%2C_Dejvice%2C_zast%C3%A1vka_Podbaba_VII.jpg/1920px-Praha%2C_Dejvice%2C_zast%C3%A1vka_Podbaba_VII.jpg",
+  "artist": "I would appreciate being notified if you use my work outside Wikimedia.\nMore of my work can be found in my personal gallery.",
+  "license": "CC BY 3.0",
+  "w": 1920,
+  "h": 1279
+ },
+ "dejvice_view": {
+  "file": "Praha, Dejvice, zastávka Podbaba.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Praha%2C_Dejvice%2C_zast%C3%A1vka_Podbaba.jpg/1920px-Praha%2C_Dejvice%2C_zast%C3%A1vka_Podbaba.jpg",
+  "artist": "I would appreciate being notified if you use my work outside Wikimedia.\nMore of my work can be found in my personal gallery.",
+  "license": "CC BY 3.0",
+  "w": 1920,
+  "h": 1279
+ }
+}
