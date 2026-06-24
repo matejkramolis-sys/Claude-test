@@ -14,7 +14,7 @@
   --metal-2: #16161a;
   --radius: 12px;
   --maxw: 1080px;
-  --bar-h: 200px;
+  --bar-h: 300px;
   font-synthesis: none;
 }
 
@@ -183,17 +183,16 @@ body.has-pointer .spotlight { opacity: 0.18; }
 /* exact-photo menu (shown once assets/camera-top.png is added) */
 .camera-photo-wrap {
   pointer-events: auto; position: relative;
-  width: min(460px, 88vw);
-  aspect-ratio: 1536 / 560;        /* crops the photo down to the camera body */
-  overflow: hidden; border-radius: 12px;
-  box-shadow: 0 22px 60px rgba(0,0,0,0.6);
+  width: min(820px, 94vw);
+  aspect-ratio: 1371 / 480;        /* matches the transparent camera cutout */
 }
 .camera-photo-wrap[hidden] { display: none; }
-.camera-photo { width: 100%; height: 100%; object-fit: cover; object-position: center 43%; display: block; }
+.camera-photo { width: 100%; height: 100%; object-fit: contain; display: block;
+  filter: drop-shadow(0 16px 36px rgba(0,0,0,0.6)); }
 .cam-hot { position: absolute; border: none; background: transparent; cursor: pointer; padding: 0; border-radius: 8px; }
 .cam-hot:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-.cam-hot-all { inset: 0; z-index: 1; }                                       /* anywhere -> menu */
-.cam-hot-ig { left: 74%; top: 64%; width: 17.5%; height: 22%; z-index: 2; }  /* INSTAGRAM pill -> Instagram */
+.cam-hot-all { inset: 0; z-index: 1; }                                         /* anywhere -> menu */
+.cam-hot-ig { left: 77.3%; top: 60%; width: 19%; height: 24.6%; z-index: 2; }  /* INSTAGRAM pill -> Instagram */
 
 /* the camera body itself */
 .camera-plate {
@@ -388,7 +387,7 @@ body.has-pointer .spotlight { opacity: 0.18; }
   .camera-plate { gap: 13px; padding-bottom: 15px; }
 }
 @media (max-width: 560px) {
-  :root { --bar-h: 150px; }
+  :root { --bar-h: 160px; }
 }
 @media (max-width: 460px) {
   .cam-dial-sm { display: none; }
