@@ -1,23 +1,23 @@
 # My Portfolio Website
 
-A simple, fast personal portfolio with **videos that play right on the page** —
-no redirects to YouTube or anywhere else. Share one link, people click, they
-see your work.
+A clean, minimal portfolio for video editing & videography. Two rows of
+**videos that play right on the page** — no redirects to YouTube or anywhere
+else. Share one link, people click, they watch your work.
 
 ## Files
 
 | File | What it is |
 |------|------------|
-| `index.html` | The page itself — your text, work, and videos. Edit the words in here. |
+| `index.html` | The page itself — your name, the two video rows, and contact. |
 | `styles.css` | The look (colors, fonts, layout). |
 | `script.js`  | Makes the videos pop open and play on the page. |
 | `videos/`    | Put your video files here (see `videos/README.md`). |
 
 ## Make it yours
 
-Open `index.html` and replace the placeholder text:
-- "Your Name", the intro line, About, and Contact links.
-- Add your videos — instructions are in `videos/README.md`.
+Open `index.html` and replace the placeholders:
+- "Your Name" and the contact email.
+- Add your videos — just name the files as listed in `videos/README.md`.
 
 You can preview it locally by just double-clicking `index.html` to open it in
 your browser.

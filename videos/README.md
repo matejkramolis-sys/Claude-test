@@ -1,27 +1,30 @@
 # Your videos go here
 
-Drop your video files in this folder, then point the site at them.
+Drop your 10 video files in this folder. The site expects these names:
 
-## Steps
+**Editing (5):**
+`edit-1.mp4`, `edit-2.mp4`, `edit-3.mp4`, `edit-4.mp4`, `edit-5.mp4`
 
-1. **Add your video file here**, for example: `videos/my-clip.mp4`
-   - Use `.mp4` (H.264) — it plays everywhere (phones, laptops, all browsers).
-   - (Optional) add a thumbnail image too, e.g. `videos/my-clip.jpg`.
+**Shot & Edited (5):**
+`shot-1.mp4`, `shot-2.mp4`, `shot-3.mp4`, `shot-4.mp4`, `shot-5.mp4`
 
-2. **Open `index.html`** and find the "Videos" section. Copy one of the
-   `video-card` blocks and update three things:
-   - `data-src="videos/my-clip.mp4"`  — path to your video
-   - the `<img src="videos/my-clip.jpg">` — path to your thumbnail
-   - the title and description text
+Name your files exactly like that and they'll just work — no editing the code.
 
-That's it. When someone clicks the video on your site, it plays right there
-in a popup — no redirect to YouTube or anywhere else.
+## Optional: thumbnails
+
+Add a matching image (e.g. `edit-1.jpg`) and it shows as the cover. Skip it
+and you get a clean placeholder with a play button instead.
+
+## Want to rename, reorder, or change a caption?
+
+Open `index.html`, find the video and change:
+- `data-src="videos/edit-1.mp4"` — the file it plays
+- the `<figcaption>` text — the line shown under the video (e.g. "Edited by me.")
 
 ## Tips
 
-- **Keep files reasonably small.** Big videos load slowly. Aim for under
-  ~50 MB per clip if you can. Free tools like HandBrake can shrink them.
-- **No thumbnail?** No problem — the card shows a clean placeholder and a
-  play button automatically.
-- **Lots of large videos / want it to feel instant?** Tell me and I'll set
-  you up to stream them from a free video host while still playing on-site.
+- Use **`.mp4` (H.264)** — it plays on every phone and browser.
+- Keep files reasonably small (aim under ~50 MB each) so they load fast.
+  Free apps like HandBrake shrink videos without much quality loss.
+- Got large/high-res clips and want playback to feel instant? Tell me and
+  I'll set you up to stream them while still playing on your site.
