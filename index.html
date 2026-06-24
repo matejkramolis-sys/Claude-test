@@ -6,7 +6,6 @@
   <title>Your Name — Video Editor & Videographer</title>
   <meta name="description" content="Showreel of Your Name — video editing and videography. Selected edits and original shot-and-edited work." />
 
-  <!-- Social sharing preview (shows a nice card when you paste the link) -->
   <meta property="og:title" content="Your Name — Video Editor & Videographer" />
   <meta property="og:description" content="Selected edits and original shot-and-edited work." />
   <meta property="og:type" content="website" />
@@ -15,133 +14,146 @@
 </head>
 <body>
 
-  <!-- ============ HEADER ============ -->
-  <header class="nav">
-    <a href="#top" class="brand">Your Name</a>
-    <nav>
-      <a href="#editing">Editing</a>
-      <a href="#shot">Shot &amp; Edited</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <!-- scroll progress line -->
+  <div id="progress" class="progress"></div>
 
-  <!-- ============ INTRO ============ -->
+  <!-- spotlight that follows the cursor -->
+  <div id="spotlight" class="spotlight" aria-hidden="true"></div>
+
+  <!-- animated background -->
+  <div class="bg-aurora" aria-hidden="true"></div>
+  <div class="bg-grain" aria-hidden="true"></div>
+
+  <!-- ============ HERO ============ -->
   <section id="top" class="hero">
     <div class="hero-inner">
-      <h1>Your Name</h1>
-      <p class="lede">Video Editor &amp; Videographer</p>
+      <p class="eyebrow reveal" data-reveal="up">PORTFOLIO · MMXXVI</p>
+      <h1 class="hero-title">
+        <span class="line"><span class="word">Your</span></span>
+        <span class="line"><span class="word">Name</span></span>
+      </h1>
+      <p class="lede reveal" data-reveal="up">Video Editor &amp; Videographer</p>
+      <p class="scroll-cue reveal" data-reveal="up">Scroll <span class="arrow">↓</span></p>
     </div>
   </section>
 
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>EDITING&nbsp;&nbsp;✦&nbsp;&nbsp;VIDEOGRAPHY&nbsp;&nbsp;✦&nbsp;&nbsp;COLOR&nbsp;&nbsp;✦&nbsp;&nbsp;MOTION&nbsp;&nbsp;✦&nbsp;&nbsp;STORY&nbsp;&nbsp;✦&nbsp;&nbsp;</span>
+      <span>EDITING&nbsp;&nbsp;✦&nbsp;&nbsp;VIDEOGRAPHY&nbsp;&nbsp;✦&nbsp;&nbsp;COLOR&nbsp;&nbsp;✦&nbsp;&nbsp;MOTION&nbsp;&nbsp;✦&nbsp;&nbsp;STORY&nbsp;&nbsp;✦&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
   <!-- ============ EDITING ============ -->
   <section id="editing" class="section">
-    <h2 class="section-title">Editing</h2>
+    <h2 class="section-title reveal" data-reveal="left"><span class="num">01</span> Editing</h2>
 
     <!--
-      TO ADD/CHANGE A VIDEO:
-      - data-src  -> path to your video file in the /videos folder
-      - <img src>  -> optional thumbnail (delete the line for a plain placeholder)
-      - the <p>    -> the short caption shown under the video
+      EDIT LATER: change data-src (the video file) and the <figcaption> text
+      (the caption under each video) whenever you pick your clips.
     -->
     <div class="video-grid">
-
-      <figure class="video-card" data-src="videos/edit-1.mp4">
-        <div class="thumb">
-          <img src="videos/edit-1.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="left" data-src="videos/edit-1.mp4">
+        <div class="thumb"><img src="videos/edit-1.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Edited by me.</figcaption>
       </figure>
-
-      <figure class="video-card" data-src="videos/edit-2.mp4">
-        <div class="thumb">
-          <img src="videos/edit-2.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="right" data-src="videos/edit-2.mp4">
+        <div class="thumb"><img src="videos/edit-2.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Edited by me.</figcaption>
       </figure>
-
-      <figure class="video-card" data-src="videos/edit-3.mp4">
-        <div class="thumb">
-          <img src="videos/edit-3.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="left" data-src="videos/edit-3.mp4">
+        <div class="thumb"><img src="videos/edit-3.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Edited by me.</figcaption>
       </figure>
-
-      <figure class="video-card" data-src="videos/edit-4.mp4">
-        <div class="thumb">
-          <img src="videos/edit-4.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="right" data-src="videos/edit-4.mp4">
+        <div class="thumb"><img src="videos/edit-4.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Edited by me.</figcaption>
       </figure>
-
-      <figure class="video-card" data-src="videos/edit-5.mp4">
-        <div class="thumb">
-          <img src="videos/edit-5.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="up" data-src="videos/edit-5.mp4">
+        <div class="thumb"><img src="videos/edit-5.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Edited by me.</figcaption>
       </figure>
-
     </div>
   </section>
 
   <!-- ============ SHOT & EDITED ============ -->
   <section id="shot" class="section">
-    <h2 class="section-title">Shot &amp; Edited</h2>
+    <h2 class="section-title reveal" data-reveal="right"><span class="num">02</span> Shot &amp; Edited</h2>
 
     <div class="video-grid">
-
-      <figure class="video-card" data-src="videos/shot-1.mp4">
-        <div class="thumb">
-          <img src="videos/shot-1.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="left" data-src="videos/shot-1.mp4">
+        <div class="thumb"><img src="videos/shot-1.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Shot &amp; edited by me.</figcaption>
       </figure>
-
-      <figure class="video-card" data-src="videos/shot-2.mp4">
-        <div class="thumb">
-          <img src="videos/shot-2.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="right" data-src="videos/shot-2.mp4">
+        <div class="thumb"><img src="videos/shot-2.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Shot &amp; edited by me.</figcaption>
       </figure>
-
-      <figure class="video-card" data-src="videos/shot-3.mp4">
-        <div class="thumb">
-          <img src="videos/shot-3.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="left" data-src="videos/shot-3.mp4">
+        <div class="thumb"><img src="videos/shot-3.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Shot &amp; edited by me.</figcaption>
       </figure>
-
-      <figure class="video-card" data-src="videos/shot-4.mp4">
-        <div class="thumb">
-          <img src="videos/shot-4.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="right" data-src="videos/shot-4.mp4">
+        <div class="thumb"><img src="videos/shot-4.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Shot &amp; edited by me.</figcaption>
       </figure>
-
-      <figure class="video-card" data-src="videos/shot-5.mp4">
-        <div class="thumb">
-          <img src="videos/shot-5.jpg" alt="" onerror="this.style.display='none'" />
-          <span class="play-badge" aria-hidden="true">▶</span>
-        </div>
+      <figure class="video-card reveal" data-reveal="up" data-src="videos/shot-5.mp4">
+        <div class="thumb"><img src="videos/shot-5.jpg" alt="" onerror="this.style.display='none'" /><span class="play-badge">▶</span></div>
         <figcaption>Shot &amp; edited by me.</figcaption>
       </figure>
-
     </div>
   </section>
 
-  <!-- ============ CONTACT ============ -->
-  <footer id="contact" class="footer">
-    <a class="contact-link" href="mailto:you@example.com">you@example.com</a>
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <a class="contact-link reveal" data-reveal="up" href="mailto:you@example.com">you@example.com</a>
     <p class="copyright">© <span id="year"></span> Your Name</p>
   </footer>
+
+  <!-- ============ CAMERA-TOP MENU (fixed bottom) ============ -->
+  <div class="camera-bar" role="navigation" aria-label="Camera menu">
+    <div class="camera-plate">
+      <!-- on/off lever -->
+      <span class="cam-lever" aria-hidden="true"><span class="cam-lever-knob"></span></span>
+
+      <!-- mode dial -> opens menu -->
+      <button class="cam-control cam-dial" data-action="menu" aria-label="Open menu">
+        <span class="dial-face"><span class="dial-mark"></span></span>
+        <span class="cam-label">MENU</span>
+      </button>
+
+      <!-- hot shoe (decorative) -->
+      <span class="cam-hotshoe" aria-hidden="true"><span></span><span></span><span></span></span>
+
+      <!-- engraving / shout-out -->
+      <a class="cam-engraving" href="https://claude.com/claude-code" target="_blank" rel="noopener">BUILT WITH CLAUDE</a>
+
+      <!-- instagram dial -->
+      <a class="cam-control cam-ig" href="https://instagram.com/yourhandle" target="_blank" rel="noopener" aria-label="Instagram">
+        <span class="ig-glyph" aria-hidden="true"></span>
+        <span class="cam-label">INSTAGRAM</span>
+      </a>
+
+      <!-- shutter button -> main / top -->
+      <button class="cam-control cam-shutter" data-action="top" aria-label="Back to top">
+        <span class="shutter-ring"></span>
+        <span class="cam-label">MAIN</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ MENU OVERLAY ============ -->
+  <div id="menu" class="menu-overlay" hidden>
+    <button id="menu-close" class="menu-close" aria-label="Close menu">✕</button>
+    <nav class="menu-links">
+      <a href="#top" data-jump>Main</a>
+      <a href="#editing" data-jump>Editing</a>
+      <a href="#shot" data-jump>Shot &amp; Edited</a>
+      <a href="mailto:you@example.com">Contact</a>
+      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+  </div>
 
   <!-- ============ VIDEO PLAYER POPUP (plays on-site, no redirect) ============ -->
   <div id="player" class="player-overlay" hidden>
