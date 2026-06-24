@@ -81,16 +81,62 @@ const menuClose = document.getElementById('menu-close');
 function openMenu()  { menu.hidden = false; document.body.style.overflow = 'hidden'; }
 function closeMenu() { menu.hidden = true;  document.body.style.overflow = ''; }
 
+const smooth = reduceMotion ? 'auto' : 'smooth';
 document.querySelectorAll('[data-action]').forEach((btn) => {
   btn.addEventListener('click', () => {
     const action = btn.getAttribute('data-action');
-    if (action === 'menu') openMenu();
-    if (action === 'top')  window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    if (action === 'menu')   openMenu();
+    if (action === 'top')    window.scrollTo({ top: 0, behavior: smooth });
+    if (action === 'bottom') window.scrollTo({ top: document.documentElement.scrollHeight, behavior: smooth });
   });
 });
 menuClose.addEventListener('click', closeMenu);
 menu.addEventListener('click', (e) => { if (e.target === menu) closeMenu(); });
 menu.querySelectorAll('[data-jump]').forEach((a) => a.addEventListener('click', closeMenu));
+
+// ---------- power switch = scroll position (ON at top, OFF at bottom) ----------
+const switchDot = document.getElementById('switchDot');
+if (switchDot) {
+  const ON_TOP = 17.5, OFF_TOP = 10; // % positions of the dot (ON lower, OFF higher)
+  const sync = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0; // 0 top .. 1 bottom
+    switchDot.style.top = (ON_TOP - p * (ON_TOP - OFF_TOP)) + '%';
+    // green (ON) -> red (OFF)
+    const r = Math.round(43 + p * (255 - 43)), g = Math.round(212 - p * (153)), b = Math.round(107 - p * 59);
+    switchDot.style.background = 'radial-gradient(circle at 35% 30%, #fff, rgb(' + r + ',' + g + ',' + b + '))';
+    switchDot.style.boxShadow = '0 0 9px rgba(' + r + ',' + g + ',' + b + ',0.85)';
+  };
+  addEventListener('scroll', sync, { passive: true });
+  sync();
+}
+
+// ---------- C1 press feedback ----------
+document.querySelectorAll('[data-c1]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    btn.classList.remove('press');
+    void btn.offsetWidth;        // restart animation
+    btn.classList.add('press');
+    setTimeout(() => btn.classList.remove('press'), 560);
+  });
+});
+
+// ---------- dials rotate as you slide across them ----------
+if (!reduceMotion) {
+  document.querySelectorAll('.cam-dialimg').forEach((dial) => {
+    dial.addEventListener('pointermove', (e) => {
+      const r = dial.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;   // -0.5 .. 0.5
+      dial.style.transition = 'transform 0.08s linear';
+      dial.style.transform = 'rotate(' + (x * 60) + 'deg)';
+    });
+    dial.addEventListener('pointerleave', () => {
+      dial.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      dial.style.transform = 'rotate(0deg)';
+    });
+  });
+}
 
 // ---------- on-site video player ----------
 const overlay = document.getElementById('player');

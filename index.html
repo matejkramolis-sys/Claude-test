@@ -117,7 +117,21 @@
          Clicking the INSTAGRAM area opens Instagram; clicking anywhere else opens the menu. -->
     <div id="camPhotoWrap" class="camera-photo-wrap" hidden>
       <img class="camera-photo" src="assets/camera-top.png" alt="Camera top menu" />
-      <button class="cam-hot cam-hot-all" data-action="menu" aria-label="Open menu"></button>
+
+      <!-- rotating dials (slide across them to turn) -->
+      <img id="dialMode" class="cam-dialimg cam-dial-mode" src="assets/dial-mode.png" alt="" aria-hidden="true" />
+      <img id="dialExpo" class="cam-dialimg cam-dial-expo" src="assets/dial-expo.png" alt="" aria-hidden="true" />
+
+      <!-- C1 button: press feedback -->
+      <button class="cam-hot cam-c1" data-c1 aria-label="C1 button"></button>
+
+      <!-- power switch: scroll indicator + click zones (ON = top of page, OFF = bottom) -->
+      <span id="switchDot" class="cam-switch-dot" aria-hidden="true"></span>
+      <button class="cam-hot cam-pw-off" data-action="bottom" aria-label="Power off — scroll to bottom"></button>
+      <button class="cam-hot cam-pw-on" data-action="top" aria-label="Power on — scroll to top"></button>
+
+      <!-- MENU + INSTAGRAM -->
+      <button class="cam-hot cam-hot-menu" data-action="menu" aria-label="Open menu"></button>
       <a class="cam-hot cam-hot-ig" href="https://www.instagram.com/t.castvaj" target="_blank" rel="noopener" aria-label="Instagram"></a>
     </div>
 

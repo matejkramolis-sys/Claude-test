@@ -176,8 +176,8 @@ body.has-pointer .spotlight { opacity: 0.18; }
    ============================================================ */
 .camera-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-  display: flex; justify-content: center;
-  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  display: flex; justify-content: center; align-items: flex-end;
+  padding: 12px 16px calc(0px + env(safe-area-inset-bottom, 0px));
   pointer-events: none;
 }
 /* exact-photo menu (shown once assets/camera-top.png is added) */
@@ -189,10 +189,37 @@ body.has-pointer .spotlight { opacity: 0.18; }
 .camera-photo-wrap[hidden] { display: none; }
 .camera-photo { width: 100%; height: 100%; object-fit: contain; display: block;
   filter: drop-shadow(0 16px 36px rgba(0,0,0,0.6)); }
-.cam-hot { position: absolute; border: none; background: transparent; cursor: pointer; padding: 0; border-radius: 8px; }
-.cam-hot:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-.cam-hot-all { inset: 0; z-index: 1; }                                         /* anywhere -> menu */
-.cam-hot-ig { left: 77.3%; top: 60%; width: 19%; height: 24.6%; z-index: 2; }  /* INSTAGRAM pill -> Instagram */
+
+/* clickable zones (only real buttons do something) */
+.cam-hot { position: absolute; border: none; background: transparent; cursor: pointer; padding: 0; border-radius: 8px; z-index: 3; }
+.cam-hot:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
+.cam-hot-menu { left: 58.8%; top: 60%;  width: 18.5%; height: 24.6%; }   /* MENU pill */
+.cam-hot-ig   { left: 77.3%; top: 60%;  width: 19%;   height: 24.6%; }   /* INSTAGRAM pill */
+.cam-pw-off   { left: 81%;   top: 9.5%; width: 9%;    height: 7%; }       /* OFF (bottom of page) */
+.cam-pw-on    { left: 81%;   top: 17%;  width: 9%;    height: 7.5%; }     /* ON (top of page) */
+
+/* rotating dial overlays */
+.cam-dialimg { position: absolute; z-index: 2; cursor: ew-resize; transform-origin: center center;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; }
+.cam-dial-mode { left: 49.9%;  top: 31.46%; width: 7.44%; height: 21.25%; }
+.cam-dial-expo { left: 60.76%; top: 29.58%; width: 8.02%; height: 22.9%; }
+
+/* C1 press feedback (red ring) */
+.cam-c1 { left: 71.6%; top: 34.6%; width: 4.4%; height: 12.5%; border-radius: 50%; }
+.cam-c1::after { content: ""; position: absolute; inset: -35%; border-radius: 50%;
+  border: 2px solid #ff3b30; opacity: 0; transform: scale(0.6); pointer-events: none; }
+.cam-c1.press::after { animation: c1ring 0.55s ease-out; }
+@keyframes c1ring { 0% { opacity: 0.95; transform: scale(0.55); } 100% { opacity: 0; transform: scale(1.35); } }
+.cam-c1::before { content: ""; position: absolute; inset: 8%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,0,0,0.55), transparent 70%); opacity: 0; transition: opacity 0.1s; pointer-events: none; }
+.cam-c1.press::before { opacity: 1; transition: none; }
+
+/* power switch scroll indicator dot */
+.cam-switch-dot { position: absolute; left: 82.8%; top: 17.5%;
+  width: clamp(7px, 0.95vw, 13px); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #b6ffce, #2bd46b);
+  box-shadow: 0 0 9px rgba(80,255,140,0.8); pointer-events: none; z-index: 4;
+  transition: top 0.15s linear, background 0.3s, box-shadow 0.3s; }
 
 /* the camera body itself */
 .camera-plate {
