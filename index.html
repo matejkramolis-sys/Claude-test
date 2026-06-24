@@ -113,8 +113,17 @@
   <!-- ============ CAMERA-TOP MENU (fixed bottom) ============ -->
   <div class="camera-bar" role="navigation" aria-label="Camera menu">
     <div class="camera-plate">
+      <!-- strap lugs -->
+      <span class="cam-lug cam-lug-l" aria-hidden="true"></span>
+      <span class="cam-lug cam-lug-r" aria-hidden="true"></span>
+
+      <!-- left "scope": viewfinder/flash hump with hot shoe + flash lamp -->
+      <span class="cam-scope" aria-hidden="true">
+        <span class="cam-hotshoe"><span></span><span></span><span></span></span>
+        <span class="cam-flash"></span>
+      </span>
+
       <!-- decorative camera details -->
-      <span class="cam-hotshoe" aria-hidden="true"><span></span><span></span><span></span></span>
       <span class="cam-screen" aria-hidden="true"></span>
       <span class="cam-dial cam-dial-lg" aria-hidden="true"><span class="tick"></span></span>
       <span class="cam-dial cam-dial-sm" aria-hidden="true"><span class="tick"></span></span>
@@ -132,7 +141,8 @@
         <span class="ic-ig" aria-hidden="true"></span>INSTAGRAM
       </a>
 
-      <!-- faint shout-out engraving -->
+      <!-- ribbed grip + faint shout-out engraving -->
+      <span class="cam-grip" aria-hidden="true"></span>
       <a class="cam-engraving" href="https://claude.com/claude-code" target="_blank" rel="noopener">BUILT WITH CLAUDE</a>
     </div>
   </div>

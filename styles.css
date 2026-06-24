@@ -195,32 +195,77 @@ body.has-pointer .spotlight { opacity: 0.18; }
     inset 0 -12px 24px rgba(0,0,0,0.75);
   max-width: calc(100vw - 24px);
 }
-/* fine textured grip strip along the bottom edge */
+/* leatherette grip covering the lower body */
 .camera-plate::after {
-  content: ""; position: absolute; left: 12px; right: 12px; bottom: 5px; height: 32%;
-  border-radius: 0 0 14px 14px; pointer-events: none;
-  background-image: radial-gradient(rgba(255,255,255,0.06) 0.5px, transparent 1.3px);
-  background-size: 5px 5px; opacity: 0.5;
+  content: ""; position: absolute; left: 10px; right: 10px; bottom: 6px; height: 40%;
+  border-radius: 0 0 14px 14px; pointer-events: none; z-index: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.07) 0.5px, transparent 1.4px),
+    radial-gradient(rgba(0,0,0,0.5) 0.5px, transparent 1.4px);
+  background-size: 4px 4px, 4px 4px;
+  background-position: 0 0, 2px 2px;
+  opacity: 0.55;
 }
 
-/* hot shoe (raised mount, far left) */
-.cam-hotshoe {
-  width: 50px; height: 28px; border-radius: 5px; flex: none; align-self: flex-start;
-  margin-top: -3px;
-  background: linear-gradient(180deg, #3a3b40, #18191c);
-  border: 1px solid #000;
-  box-shadow: inset 0 2px 2px rgba(255,255,255,0.12), inset 0 -4px 8px rgba(0,0,0,0.7), 0 2px 4px rgba(0,0,0,0.5);
-  display: flex; align-items: center; justify-content: center; gap: 5px;
+/* strap lugs poking out the sides */
+.cam-lug {
+  position: absolute; top: 16px; width: 13px; height: 22px; z-index: -1;
+  background: linear-gradient(180deg, #2b2c31, #121214);
+  border: 1px solid #000; border-radius: 5px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
 }
-.cam-hotshoe span { width: 3px; height: 13px; background: #0a0a0b; border-radius: 2px; box-shadow: inset 0 0 2px rgba(255,255,255,0.15); }
+.cam-lug-l { left: -6px; }
+.cam-lug-r { right: -6px; }
+
+/* left "scope": viewfinder/flash hump with hot shoe + flash lamp */
+.cam-scope { position: relative; flex: none; width: clamp(70px, 9vw, 86px); align-self: stretch; }
+.cam-scope::before { /* the raised prism hump */
+  content: ""; position: absolute; left: 6px; right: 6px; top: -26px; height: 40px;
+  background: linear-gradient(180deg, #36373c 0%, #1d1e22 55%, #0f0f12 100%);
+  clip-path: polygon(9% 100%, 26% 0, 74% 0, 91% 100%);
+  box-shadow: inset 0 2px 1px rgba(255,255,255,0.14);
+  z-index: 0;
+}
+.cam-hotshoe {
+  position: absolute; top: -33px; left: 50%; transform: translateX(-50%); z-index: 2;
+  width: 34px; height: 13px; border-radius: 4px;
+  background: linear-gradient(180deg, #3d3e44, #18191c);
+  border: 1px solid #000;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.14), 0 2px 3px rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.cam-hotshoe span { width: 2.5px; height: 7px; background: #0a0a0b; border-radius: 2px; }
+.cam-flash {
+  position: absolute; top: -6px; left: 50%; transform: translateX(-50%); z-index: 2;
+  width: 17px; height: 17px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #ffffff, #cdd7ee 38%, #5566aa 75%, #2a3358);
+  border: 2px solid #0c0c10;
+  box-shadow: 0 0 10px rgba(150,180,255,0.5), inset 0 0 4px rgba(255,255,255,0.7);
+  animation: flashPulse 4s ease-in-out infinite;
+}
+@keyframes flashPulse {
+  0%, 92%, 100% { box-shadow: 0 0 10px rgba(150,180,255,0.45), inset 0 0 4px rgba(255,255,255,0.7); }
+  95% { box-shadow: 0 0 22px rgba(190,210,255,0.95), inset 0 0 4px rgba(255,255,255,0.9); }
+}
 
 /* small info screen */
 .cam-screen {
-  width: clamp(58px, 9vw, 100px); height: 32px; border-radius: 5px; flex: none;
+  width: clamp(50px, 8vw, 92px); height: 32px; border-radius: 5px; flex: none; z-index: 1;
   background: linear-gradient(160deg, #10131a, #04050a);
   border: 1px solid #000;
   box-shadow: inset 0 2px 7px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.06);
 }
+
+/* ribbed grip pad (right end) */
+.cam-grip {
+  flex: none; width: 24px; height: 48px; border-radius: 6px; z-index: 1;
+  background: repeating-linear-gradient(90deg, #1c1d21 0 2.5px, #303137 2.5px 5px);
+  border: 1px solid #000;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.07);
+}
+
+/* keep all controls above the leatherette texture */
+.cam-scope, .cam-dial, .cam-round, .cam-pill { position: relative; z-index: 1; }
 
 /* knurled dials */
 .cam-dial {
@@ -324,8 +369,8 @@ body.has-pointer .spotlight { opacity: 0.18; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 680px) {
-  .cam-hotshoe, .cam-screen, .cam-engraving { display: none; }
-  .camera-plate { gap: 14px; padding-bottom: 15px; }
+  .cam-screen, .cam-grip, .cam-engraving, .cam-lug { display: none; }
+  .camera-plate { gap: 13px; padding-bottom: 15px; }
 }
 @media (max-width: 460px) {
   .cam-dial-sm { display: none; }
