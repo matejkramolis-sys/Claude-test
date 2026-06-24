@@ -61,19 +61,6 @@ if (finePointer && !reduceMotion) {
   });
 }
 
-// ---------- swap to the exact-photo menu when assets/camera-top.png exists ----------
-(function () {
-  const wrap = document.getElementById('camPhotoWrap');
-  const plate = document.getElementById('camPlate');
-  const img = wrap && wrap.querySelector('.camera-photo');
-  if (!wrap || !plate || !img) return;
-  const showPhoto = () => { wrap.hidden = false; plate.hidden = true; };
-  const showPlate = () => { wrap.remove(); plate.hidden = false; };
-  if (img.complete) { (img.naturalWidth > 0 ? showPhoto : showPlate)(); }
-  img.addEventListener('load', showPhoto);
-  img.addEventListener('error', showPlate);
-})();
-
 // ---------- camera-top menu actions ----------
 const menu = document.getElementById('menu');
 const menuClose = document.getElementById('menu-close');
@@ -94,19 +81,15 @@ menuClose.addEventListener('click', closeMenu);
 menu.addEventListener('click', (e) => { if (e.target === menu) closeMenu(); });
 menu.querySelectorAll('[data-jump]').forEach((a) => a.addEventListener('click', closeMenu));
 
-// ---------- power switch = scroll position (ON at top, OFF at bottom) ----------
-const switchDot = document.getElementById('switchDot');
-if (switchDot) {
-  const ON_TOP = 17.5, OFF_TOP = 10; // % positions of the dot (ON lower, OFF higher)
+// ---------- power switch knob = scroll position (ON at top, OFF at bottom) ----------
+const pwKnob = document.getElementById('pwKnob');
+if (pwKnob) {
+  const TOP_PCT = 6, BOTTOM_PCT = 52;  // knob travel inside the track
   const sync = () => {
     const h = document.documentElement;
     const max = h.scrollHeight - h.clientHeight;
-    const p = max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0; // 0 top .. 1 bottom
-    switchDot.style.top = (ON_TOP - p * (ON_TOP - OFF_TOP)) + '%';
-    // green (ON) -> red (OFF)
-    const r = Math.round(43 + p * (255 - 43)), g = Math.round(212 - p * (153)), b = Math.round(107 - p * 59);
-    switchDot.style.background = 'radial-gradient(circle at 35% 30%, #fff, rgb(' + r + ',' + g + ',' + b + '))';
-    switchDot.style.boxShadow = '0 0 9px rgba(' + r + ',' + g + ',' + b + ',0.85)';
+    const p = max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0; // 0 top(ON) .. 1 bottom(OFF)
+    pwKnob.style.top = (TOP_PCT + p * (BOTTOM_PCT - TOP_PCT)) + '%';
   };
   addEventListener('scroll', sync, { passive: true });
   sync();
@@ -122,19 +105,24 @@ document.querySelectorAll('[data-c1]').forEach((btn) => {
   });
 });
 
-// ---------- dials rotate as you slide across them ----------
+// ---------- dials spin freely as you drag/slide across them ----------
 if (!reduceMotion) {
-  document.querySelectorAll('.cam-dialimg').forEach((dial) => {
+  document.querySelectorAll('[data-dial]').forEach((dial) => {
+    let angle = 0, last = null;
+    const center = () => { const r = dial.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; };
     dial.addEventListener('pointermove', (e) => {
-      const r = dial.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;   // -0.5 .. 0.5
-      dial.style.transition = 'transform 0.08s linear';
-      dial.style.transform = 'rotate(' + (x * 60) + 'deg)';
+      const c = center();
+      const a = Math.atan2(e.clientY - c.y, e.clientX - c.x) * 180 / Math.PI;
+      if (last !== null) {
+        let d = a - last;
+        if (d > 180) d -= 360; else if (d < -180) d += 360;  // shortest path
+        angle += d;
+        dial.style.transition = 'transform 0.05s linear';
+        dial.style.transform = 'rotate(' + angle + 'deg)';
+      }
+      last = a;
     });
-    dial.addEventListener('pointerleave', () => {
-      dial.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
-      dial.style.transform = 'rotate(0deg)';
-    });
+    dial.addEventListener('pointerleave', () => { last = null; });
   });
 }
 

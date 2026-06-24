@@ -110,63 +110,47 @@
     <p class="copyright">© <span id="year"></span> TeeCee</p>
   </footer>
 
-  <!-- ============ CAMERA-TOP MENU (fixed bottom) ============ -->
+  <!-- ============ CAMERA-TOP MENU (fixed bottom, built in CSS) ============ -->
   <div class="camera-bar" role="navigation" aria-label="Camera menu">
+    <div class="cam">
+      <div class="cam-body">
 
-    <!-- EXACT-PHOTO menu: appears automatically once you add assets/camera-top.png.
-         Clicking the INSTAGRAM area opens Instagram; clicking anywhere else opens the menu. -->
-    <div id="camPhotoWrap" class="camera-photo-wrap" hidden>
-      <img class="camera-photo" src="assets/camera-top.png" alt="Camera top menu" />
+        <!-- top deck -->
+        <div class="cam-deck">
+          <!-- viewfinder / flash hump -->
+          <span class="cam-hump" aria-hidden="true">
+            <span class="cam-shoe"></span>
+            <span class="cam-bolt">⚡</span>
+          </span>
 
-      <!-- rotating dials (slide across them to turn) -->
-      <img id="dialMode" class="cam-dialimg cam-dial-mode" src="assets/dial-mode.png" alt="" aria-hidden="true" />
-      <img id="dialExpo" class="cam-dialimg cam-dial-expo" src="assets/dial-expo.png" alt="" aria-hidden="true" />
+          <span class="cam-lcd" aria-hidden="true"></span>
 
-      <!-- C1 button: press feedback -->
-      <button class="cam-hot cam-c1" data-c1 aria-label="C1 button"></button>
+          <!-- dials: slide across to rotate -->
+          <button class="cam-knob cam-mode" data-dial aria-label="Mode dial"><span class="ptr"></span></button>
+          <button class="cam-knob cam-expo" data-dial aria-label="Exposure dial"><span class="ptr"></span></button>
 
-      <!-- power switch: scroll indicator + click zones (ON = top of page, OFF = bottom) -->
-      <span id="switchDot" class="cam-switch-dot" aria-hidden="true"></span>
-      <button class="cam-hot cam-pw-off" data-action="bottom" aria-label="Power off — scroll to bottom"></button>
-      <button class="cam-hot cam-pw-on" data-action="top" aria-label="Power on — scroll to top"></button>
+          <!-- C1: press feedback -->
+          <button class="cam-c1btn" data-c1 aria-label="C1 button">C1</button>
 
-      <!-- MENU + INSTAGRAM -->
-      <button class="cam-hot cam-hot-menu" data-action="menu" aria-label="Open menu"></button>
-      <a class="cam-hot cam-hot-ig" href="https://www.instagram.com/t.castvaj" target="_blank" rel="noopener" aria-label="Instagram"></a>
-    </div>
+          <!-- power switch: slides with scroll (ON top, OFF bottom) -->
+          <span class="cam-power">
+            <button class="pw-lab" data-action="top" aria-label="On — scroll to top">ON</button>
+            <span class="pw-track"><span class="pw-knob" id="pwKnob"></span></span>
+            <button class="pw-lab" data-action="bottom" aria-label="Off — scroll to bottom">OFF</button>
+          </span>
+        </div>
 
-    <!-- Fallback drawn camera (shows until the photo file is added) -->
-    <div id="camPlate" class="camera-plate">
-      <!-- strap lugs -->
-      <span class="cam-lug cam-lug-l" aria-hidden="true"></span>
-      <span class="cam-lug cam-lug-r" aria-hidden="true"></span>
+        <!-- front buttons -->
+        <div class="cam-front">
+          <button class="cam-pill" data-action="menu" aria-label="Open menu">
+            <span class="ic-menu" aria-hidden="true"></span>MENU
+          </button>
+          <a class="cam-pill" href="https://www.instagram.com/t.castvaj" target="_blank" rel="noopener">
+            <span class="ic-ig" aria-hidden="true"></span>INSTAGRAM
+          </a>
+        </div>
 
-      <!-- left "scope": viewfinder/flash hump with hot shoe + flash lamp -->
-      <span class="cam-scope" aria-hidden="true">
-        <span class="cam-hotshoe"><span></span><span></span><span></span></span>
-        <span class="cam-flash"></span>
-      </span>
-
-      <!-- decorative camera details -->
-      <span class="cam-screen" aria-hidden="true"></span>
-      <span class="cam-dial cam-dial-lg" aria-hidden="true"><span class="tick"></span></span>
-      <span class="cam-dial cam-dial-sm" aria-hidden="true"><span class="tick"></span></span>
-
-      <!-- round button -> back to top -->
-      <button class="cam-round" data-action="top" aria-label="Back to top"></button>
-
-      <!-- MENU button -->
-      <button class="cam-pill" data-action="menu" aria-label="Open menu">
-        <span class="ic-menu" aria-hidden="true"></span>MENU
-      </button>
-
-      <!-- INSTAGRAM button -->
-      <a class="cam-pill" href="https://www.instagram.com/t.castvaj" target="_blank" rel="noopener">
-        <span class="ic-ig" aria-hidden="true"></span>INSTAGRAM
-      </a>
-
-      <!-- ribbed grip -->
-      <span class="cam-grip" aria-hidden="true"></span>
+      </div>
     </div>
   </div>
 

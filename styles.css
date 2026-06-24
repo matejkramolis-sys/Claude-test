@@ -14,7 +14,7 @@
   --metal-2: #16161a;
   --radius: 12px;
   --maxw: 1080px;
-  --bar-h: 300px;
+  --bar-h: 250px;
   font-synthesis: none;
 }
 
@@ -177,200 +177,140 @@ body.has-pointer .spotlight { opacity: 0.18; }
 .camera-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
   display: flex; justify-content: center; align-items: flex-end;
-  padding: 12px 16px calc(0px + env(safe-area-inset-bottom, 0px));
+  padding: 12px 16px calc(14px + env(safe-area-inset-bottom, 0px));
   pointer-events: none;
 }
-/* exact-photo menu (shown once assets/camera-top.png is added) */
-.camera-photo-wrap {
-  pointer-events: auto; position: relative;
-  width: min(820px, 94vw);
-  aspect-ratio: 1371 / 480;        /* matches the transparent camera cutout */
-}
-.camera-photo-wrap[hidden] { display: none; }
-.camera-photo { width: 100%; height: 100%; object-fit: contain; display: block;
-  filter: drop-shadow(0 16px 36px rgba(0,0,0,0.6)); }
-
-/* clickable zones (only real buttons do something) */
-.cam-hot { position: absolute; border: none; background: transparent; cursor: pointer; padding: 0; border-radius: 8px; z-index: 3; }
-.cam-hot:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
-.cam-hot-menu { left: 58.8%; top: 60%;  width: 18.5%; height: 24.6%; }   /* MENU pill */
-.cam-hot-ig   { left: 77.3%; top: 60%;  width: 19%;   height: 24.6%; }   /* INSTAGRAM pill */
-.cam-pw-off   { left: 81%;   top: 9.5%; width: 9%;    height: 7%; }       /* OFF (bottom of page) */
-.cam-pw-on    { left: 81%;   top: 17%;  width: 9%;    height: 7.5%; }     /* ON (top of page) */
-
-/* rotating dial overlays */
-.cam-dialimg { position: absolute; z-index: 2; cursor: ew-resize; transform-origin: center center;
-  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; }
-.cam-dial-mode { left: 49.9%;  top: 31.46%; width: 7.44%; height: 21.25%; }
-.cam-dial-expo { left: 60.76%; top: 29.58%; width: 8.02%; height: 22.9%; }
-
-/* C1 press feedback (red ring) */
-.cam-c1 { left: 71.6%; top: 34.6%; width: 4.4%; height: 12.5%; border-radius: 50%; }
-.cam-c1::after { content: ""; position: absolute; inset: -35%; border-radius: 50%;
-  border: 2px solid #ff3b30; opacity: 0; transform: scale(0.6); pointer-events: none; }
-.cam-c1.press::after { animation: c1ring 0.55s ease-out; }
-@keyframes c1ring { 0% { opacity: 0.95; transform: scale(0.55); } 100% { opacity: 0; transform: scale(1.35); } }
-.cam-c1::before { content: ""; position: absolute; inset: 8%; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,0,0,0.55), transparent 70%); opacity: 0; transition: opacity 0.1s; pointer-events: none; }
-.cam-c1.press::before { opacity: 1; transition: none; }
-
-/* power switch scroll indicator dot */
-.cam-switch-dot { position: absolute; left: 82.8%; top: 17.5%;
-  width: clamp(7px, 0.95vw, 13px); aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #b6ffce, #2bd46b);
-  box-shadow: 0 0 9px rgba(80,255,140,0.8); pointer-events: none; z-index: 4;
-  transition: top 0.15s linear, background 0.3s, box-shadow 0.3s; }
-
-/* the camera body itself */
-.camera-plate {
+/* ============================================================
+   CAMERA MENU — built entirely in CSS (no image)
+   ============================================================ */
+.cam {
   pointer-events: auto;
+  width: min(760px, 94vw);
+  aspect-ratio: 3.3 / 1;
+  container-type: inline-size;
   position: relative;
-  display: flex; align-items: center; gap: clamp(11px, 2.4vw, 24px);
-  padding: 15px clamp(20px, 4vw, 40px) 17px;
-  border-radius: 22px 22px 16px 16px;
-  background: linear-gradient(180deg, #2c2d31 0%, #161619 20%, #0a0a0c 100%);
+  filter: drop-shadow(0 16px 38px rgba(0,0,0,0.6));
+}
+
+/* the camera body shell */
+.cam-body {
+  position: absolute; inset: 0;
+  border-radius: 7cqw 7cqw 5cqw 5cqw;
+  background: linear-gradient(180deg, #34353b 0%, #1c1d22 22%, #0b0b0d 100%);
   border: 1px solid #000;
-  box-shadow:
-    0 22px 60px rgba(0,0,0,0.7),
-    inset 0 2px 0 rgba(255,255,255,0.10),
-    inset 0 -12px 24px rgba(0,0,0,0.75);
-  max-width: calc(100vw - 24px);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.10), inset 0 -3cqw 6cqw rgba(0,0,0,0.7);
+  display: flex; flex-direction: column; justify-content: center; gap: 1cqw;
+  padding: 2.6cqw 4cqw;
 }
-/* leatherette grip covering the lower body */
-.camera-plate::after {
-  content: ""; position: absolute; left: 10px; right: 10px; bottom: 6px; height: 40%;
-  border-radius: 0 0 14px 14px; pointer-events: none; z-index: 0;
-  background-image:
-    radial-gradient(rgba(255,255,255,0.07) 0.5px, transparent 1.4px),
-    radial-gradient(rgba(0,0,0,0.5) 0.5px, transparent 1.4px);
-  background-size: 4px 4px, 4px 4px;
-  background-position: 0 0, 2px 2px;
-  opacity: 0.55;
+.cam-deck  { display: flex; align-items: center; gap: 3cqw; }
+.cam-front { display: flex; align-items: center; justify-content: flex-end; gap: 2.4cqw; }
+
+/* viewfinder/flash hump with hot shoe + flash bolt */
+.cam-hump { position: relative; flex: none; width: 14cqw; height: 8cqw; align-self: center; }
+.cam-hump::before {
+  content: ""; position: absolute; left: 6%; right: 6%; top: 0; bottom: 0;
+  background: linear-gradient(180deg, #393a40, #141417);
+  clip-path: polygon(12% 100%, 26% 0, 74% 0, 88% 100%);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.14);
+}
+.cam-shoe {
+  position: absolute; top: -1.4cqw; left: 50%; transform: translateX(-50%); z-index: 2;
+  width: 6cqw; height: 2.2cqw; border-radius: 0.6cqw;
+  background: linear-gradient(180deg, #3f4046, #15161a);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.14), 0 0.4cqw 0.6cqw rgba(0,0,0,0.5);
+}
+.cam-bolt {
+  position: absolute; bottom: 0.4cqw; left: 50%; transform: translateX(-50%); z-index: 1;
+  color: #eaeaef; font-size: 3cqw; line-height: 1; text-shadow: 0 0 0.6cqw rgba(255,255,255,0.4);
 }
 
-/* strap lugs poking out the sides */
-.cam-lug {
-  position: absolute; top: 16px; width: 13px; height: 22px; z-index: -1;
-  background: linear-gradient(180deg, #2b2c31, #121214);
-  border: 1px solid #000; border-radius: 5px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-}
-.cam-lug-l { left: -6px; }
-.cam-lug-r { right: -6px; }
-
-/* left "scope": viewfinder/flash hump with hot shoe + flash lamp */
-.cam-scope { position: relative; flex: none; width: clamp(70px, 9vw, 86px); align-self: stretch; }
-.cam-scope::before { /* the raised prism hump */
-  content: ""; position: absolute; left: 6px; right: 6px; top: -26px; height: 40px;
-  background: linear-gradient(180deg, #36373c 0%, #1d1e22 55%, #0f0f12 100%);
-  clip-path: polygon(9% 100%, 26% 0, 74% 0, 91% 100%);
-  box-shadow: inset 0 2px 1px rgba(255,255,255,0.14);
-  z-index: 0;
-}
-.cam-hotshoe {
-  position: absolute; top: -33px; left: 50%; transform: translateX(-50%); z-index: 2;
-  width: 34px; height: 13px; border-radius: 4px;
-  background: linear-gradient(180deg, #3d3e44, #18191c);
-  border: 1px solid #000;
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.14), 0 2px 3px rgba(0,0,0,0.6);
-  display: flex; align-items: center; justify-content: center; gap: 4px;
-}
-.cam-hotshoe span { width: 2.5px; height: 7px; background: #0a0a0b; border-radius: 2px; }
-.cam-flash {
-  position: absolute; top: -6px; left: 50%; transform: translateX(-50%); z-index: 2;
-  width: 17px; height: 17px; border-radius: 50%;
-  background: radial-gradient(circle at 38% 32%, #ffffff, #cdd7ee 38%, #5566aa 75%, #2a3358);
-  border: 2px solid #0c0c10;
-  box-shadow: 0 0 10px rgba(150,180,255,0.5), inset 0 0 4px rgba(255,255,255,0.7);
-  animation: flashPulse 4s ease-in-out infinite;
-}
-@keyframes flashPulse {
-  0%, 92%, 100% { box-shadow: 0 0 10px rgba(150,180,255,0.45), inset 0 0 4px rgba(255,255,255,0.7); }
-  95% { box-shadow: 0 0 22px rgba(190,210,255,0.95), inset 0 0 4px rgba(255,255,255,0.9); }
+/* info LCD */
+.cam-lcd {
+  flex: none; width: 13cqw; height: 6cqw; border-radius: 1cqw;
+  background: linear-gradient(160deg, #0f1218, #04050a);
+  box-shadow: inset 0 0.5cqw 1.2cqw rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.06);
 }
 
-/* small info screen */
-.cam-screen {
-  width: clamp(50px, 8vw, 92px); height: 32px; border-radius: 5px; flex: none; z-index: 1;
-  background: linear-gradient(160deg, #10131a, #04050a);
-  border: 1px solid #000;
-  box-shadow: inset 0 2px 7px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.06);
+/* knurled dials (rotate freely) */
+.cam-knob {
+  flex: none; aspect-ratio: 1; border: none; padding: 0; cursor: grab; position: relative;
+  border-radius: 50%; transform: rotate(0deg);
+  background: repeating-conic-gradient(from 0deg, #3a3b41 0deg 7deg, #1e1f23 7deg 14deg);
+  box-shadow: 0 0.5cqw 0.8cqw rgba(0,0,0,0.6), inset 0 0 0 0.4cqw #0f0f12, inset 0 0 1.4cqw rgba(0,0,0,0.8);
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; touch-action: none;
+}
+.cam-knob:active { cursor: grabbing; }
+.cam-knob::before {
+  content: ""; position: absolute; inset: 24%; border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #3b3c41, #131316);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.14);
+}
+.cam-knob .ptr {
+  position: absolute; top: 6%; left: 50%; transform: translateX(-50%);
+  width: 0.7cqw; height: 2.4cqw; border-radius: 0.5cqw; background: #f0f0f0;
+  box-shadow: 0 0 0.6cqw rgba(255,255,255,0.5);
+}
+.cam-mode { width: 15cqw; }
+.cam-expo { width: 11.5cqw; }
+
+/* C1 button */
+.cam-c1btn {
+  flex: none; width: 7cqw; aspect-ratio: 1; border-radius: 50%; border: none; cursor: pointer;
+  color: #b9b9c0; font: inherit; font-weight: 700; font-size: 2.2cqw; position: relative;
+  background: radial-gradient(circle at 38% 30%, #46474e, #161719);
+  box-shadow: 0 0.4cqw 0.8cqw rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.2), 0 0 0 0.4cqw #0c0c0e;
+  transition: transform 0.1s;
+}
+.cam-c1btn:active { transform: scale(0.93); }
+.cam-c1btn::after {
+  content: ""; position: absolute; inset: -30%; border-radius: 50%;
+  border: 0.4cqw solid #ff3b30; opacity: 0; transform: scale(0.6); pointer-events: none;
+}
+.cam-c1btn.press::after { animation: c1ring 0.55s ease-out; }
+@keyframes c1ring { 0% { opacity: 0.95; transform: scale(0.55); } 100% { opacity: 0; transform: scale(1.4); } }
+
+/* power switch (slides ON=top .. OFF=bottom with scroll) */
+.cam-power { flex: none; display: flex; flex-direction: column; align-items: center; gap: 0.7cqw; margin-left: 1cqw; }
+.pw-lab { background: none; border: none; cursor: pointer; font: inherit; padding: 0;
+  color: #c6c6cc; font-weight: 700; font-size: 1.7cqw; letter-spacing: 0.12em; transition: color 0.2s; }
+.pw-lab:hover { color: #fff; }
+.pw-track {
+  position: relative; width: 3.6cqw; height: 7cqw; border-radius: 2cqw;
+  background: linear-gradient(180deg, #0e0e10, #08080a);
+  box-shadow: inset 0 0 1.4cqw rgba(0,0,0,0.9), inset 0 0 0 1px #2a2b30;
+}
+.pw-knob {
+  position: absolute; left: 50%; transform: translateX(-50%); top: 6%;
+  width: 3cqw; height: 3cqw; border-radius: 1.3cqw;
+  background: radial-gradient(circle at 40% 30%, #57585f, #1a1b1f);
+  box-shadow: 0 0.3cqw 0.5cqw rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.25);
+  transition: top 0.15s linear;
 }
 
-/* ribbed grip pad (right end) */
-.cam-grip {
-  flex: none; width: 24px; height: 48px; border-radius: 6px; z-index: 1;
-  background: repeating-linear-gradient(90deg, #1c1d21 0 2.5px, #303137 2.5px 5px);
-  border: 1px solid #000;
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.07);
-}
-
-/* keep all controls above the leatherette texture */
-.cam-scope, .cam-dial, .cam-round, .cam-pill { position: relative; z-index: 1; }
-
-/* knurled dials */
-.cam-dial {
-  border-radius: 50%; flex: none; position: relative;
-  background: repeating-conic-gradient(from 0deg, #3a3b41 0deg 7deg, #202125 7deg 14deg);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.6), inset 0 0 0 3px #111113, inset 0 0 10px rgba(0,0,0,0.8);
-  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
-}
-.cam-dial::before {
-  content: ""; position: absolute; inset: 22%; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #34353a, #131315);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.12);
-}
-.cam-dial .tick {
-  position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
-  width: 3px; height: 11px; border-radius: 2px; background: #f1f1f1;
-  box-shadow: 0 0 4px rgba(255,255,255,0.5); z-index: 2;
-}
-.cam-dial-lg { width: 54px; height: 54px; }
-.cam-dial-sm { width: 40px; height: 40px; }
-.cam-dial-lg:hover { transform: rotate(34deg); }
-.cam-dial-sm:hover { transform: rotate(-30deg); }
-
-/* round button (shutter -> back to top) */
-.cam-round {
-  width: 34px; height: 34px; border-radius: 50%; flex: none; border: none; cursor: pointer; padding: 0;
-  background: radial-gradient(circle at 35% 30%, #3d3e43, #131315);
-  box-shadow: 0 0 0 2px #050505, 0 3px 6px rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.18);
-  transition: transform 0.12s, box-shadow 0.2s;
-}
-.cam-round:hover { box-shadow: 0 0 0 2px #6a6b72, 0 0 16px rgba(232,225,207,0.4), inset 0 2px 3px rgba(255,255,255,0.18); }
-.cam-round:active { transform: scale(0.92); }
-
-/* MENU / INSTAGRAM pill buttons */
+/* MENU / INSTAGRAM pills */
 .cam-pill {
-  display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
-  padding: 11px 17px; border-radius: 11px; font: inherit; font-weight: 700;
-  font-size: 0.8rem; letter-spacing: 0.06em; color: #f4f4f5; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 1.4cqw; cursor: pointer;
+  padding: 1.8cqw 2.6cqw; border-radius: 1.6cqw; font: inherit; font-weight: 700;
+  font-size: 2.4cqw; letter-spacing: 0.06em; color: #f4f4f5; white-space: nowrap;
   background: linear-gradient(180deg, #27282c, #121214);
   border: 1px solid #45464c;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 0.3cqw 0.6cqw rgba(0,0,0,0.5);
   transition: transform 0.18s, border-color 0.2s, box-shadow 0.2s;
 }
-.cam-pill:hover { transform: translateY(-2px); border-color: #7c7d84; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 16px rgba(0,0,0,0.6); }
+.cam-pill:hover { transform: translateY(-2px); border-color: #7c7d84; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 1cqw 2cqw rgba(0,0,0,0.6); }
+.cam :focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
 
 /* hamburger icon */
-.ic-menu { width: 18px; height: 14px; flex: none; position: relative; }
+.ic-menu { width: 3.4cqw; height: 2.6cqw; flex: none; position: relative; }
 .ic-menu::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
-  background: currentColor; border-radius: 2px;
-  box-shadow: 0 6px 0 currentColor, 0 12px 0 currentColor;
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 0.45cqw;
+  background: currentColor; border-radius: 0.4cqw;
+  box-shadow: 0 1.1cqw 0 currentColor, 0 2.2cqw 0 currentColor;
 }
 /* instagram icon */
-.ic-ig { width: 18px; height: 18px; border-radius: 5px; border: 2px solid currentColor; position: relative; flex: none; }
-.ic-ig::before { content: ""; position: absolute; inset: 3px; border: 2px solid currentColor; border-radius: 50%; }
-.ic-ig::after { content: ""; position: absolute; top: 1.5px; right: 1.5px; width: 2.5px; height: 2.5px; border-radius: 50%; background: currentColor; }
-
-/* faint engraving / shout-out on the body */
-.cam-engraving {
-  position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%);
-  font-size: 0.5rem; letter-spacing: 0.3em; color: #54555b; text-transform: uppercase;
-  white-space: nowrap; transition: color 0.2s; pointer-events: auto;
-}
-.cam-engraving:hover { color: var(--accent); }
+.ic-ig { width: 3.2cqw; height: 3.2cqw; border-radius: 1cqw; border: 0.4cqw solid currentColor; position: relative; flex: none; }
+.ic-ig::before { content: ""; position: absolute; inset: 0.6cqw; border: 0.4cqw solid currentColor; border-radius: 50%; }
+.ic-ig::after { content: ""; position: absolute; top: 0.3cqw; right: 0.3cqw; width: 0.5cqw; height: 0.5cqw; border-radius: 50%; background: currentColor; }
 
 /* ---------- menu overlay ---------- */
 .menu-overlay {
@@ -409,16 +349,10 @@ body.has-pointer .spotlight { opacity: 0.18; }
 #player-video { width: 100%; display: block; background: #000; aspect-ratio: 16 / 9; }
 
 /* ---------- responsive ---------- */
-@media (max-width: 680px) {
-  .cam-screen, .cam-grip, .cam-engraving, .cam-lug { display: none; }
-  .camera-plate { gap: 13px; padding-bottom: 15px; }
-}
 @media (max-width: 560px) {
-  :root { --bar-h: 160px; }
-}
-@media (max-width: 460px) {
-  .cam-dial-sm { display: none; }
-  .cam-pill { padding: 10px 13px; font-size: 0.72rem; }
+  :root { --bar-h: 150px; }
+  .cam { aspect-ratio: 2.7 / 1; }   /* a touch taller so controls stay legible */
+  .cam-lcd { display: none; }
 }
 
 /* ---------- reduced motion ---------- */
