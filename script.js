@@ -61,6 +61,19 @@ if (finePointer && !reduceMotion) {
   });
 }
 
+// ---------- swap to the exact-photo menu when assets/camera-top.png exists ----------
+(function () {
+  const wrap = document.getElementById('camPhotoWrap');
+  const plate = document.getElementById('camPlate');
+  const img = wrap && wrap.querySelector('.camera-photo');
+  if (!wrap || !plate || !img) return;
+  const showPhoto = () => { wrap.hidden = false; plate.hidden = true; };
+  const showPlate = () => { wrap.remove(); plate.hidden = false; };
+  if (img.complete) { (img.naturalWidth > 0 ? showPhoto : showPlate)(); }
+  img.addEventListener('load', showPhoto);
+  img.addEventListener('error', showPlate);
+})();
+
 // ---------- camera-top menu actions ----------
 const menu = document.getElementById('menu');
 const menuClose = document.getElementById('menu-close');
