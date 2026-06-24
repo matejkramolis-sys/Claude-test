@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name — Portfolio</title>
+  <meta name="description" content="Portfolio and showreel of Your Name. Selected work, projects, and videos." />
+
+  <!-- Social sharing preview (shows a nice card when you paste the link) -->
+  <meta property="og:title" content="Your Name — Portfolio" />
+  <meta property="og:description" content="Selected work, projects, and videos." />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a href="#top" class="brand">Your Name</a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#videos">Videos</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Hi, I'm <span class="accent">Your Name</span>.</h1>
+      <p class="lede">
+        I make [what you do — e.g. videos, design, films, music].
+        Here's a look at some of my favorite work.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#videos">Watch my work</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEOS ============ -->
+  <section id="videos" class="section">
+    <div class="section-head">
+      <h2>Videos</h2>
+      <p>Click any video to play it right here on the page.</p>
+    </div>
+
+    <!--
+      HOW TO ADD A VIDEO:
+      1. Put your video file in the /videos folder (e.g. videos/my-clip.mp4).
+      2. (Optional) Add a thumbnail image in /videos too (e.g. videos/my-clip.jpg).
+      3. Copy one "video-card" block below and update:
+         - data-src   -> path to your video file
+         - the <img>  -> path to your thumbnail (or remove the img line for a plain card)
+         - the title + description text
+    -->
+    <div class="video-grid">
+
+      <article class="video-card" data-src="videos/sample-1.mp4">
+        <div class="thumb">
+          <img src="videos/sample-1.jpg" alt="" onerror="this.style.display='none'" />
+          <span class="play-badge" aria-hidden="true">▶</span>
+        </div>
+        <div class="video-meta">
+          <h3>Project One</h3>
+          <p>Short description of this video.</p>
+        </div>
+      </article>
+
+      <article class="video-card" data-src="videos/sample-2.mp4">
+        <div class="thumb">
+          <img src="videos/sample-2.jpg" alt="" onerror="this.style.display='none'" />
+          <span class="play-badge" aria-hidden="true">▶</span>
+        </div>
+        <div class="video-meta">
+          <h3>Project Two</h3>
+          <p>Short description of this video.</p>
+        </div>
+      </article>
+
+      <article class="video-card" data-src="videos/sample-3.mp4">
+        <div class="thumb">
+          <img src="videos/sample-3.jpg" alt="" onerror="this.style.display='none'" />
+          <span class="play-badge" aria-hidden="true">▶</span>
+        </div>
+        <div class="video-meta">
+          <h3>Project Three</h3>
+          <p>Short description of this video.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ WORK / EXAMPLES ============ -->
+  <section id="work" class="section section-alt">
+    <div class="section-head">
+      <h2>Selected Work</h2>
+      <p>A few projects and examples I'm proud of.</p>
+    </div>
+
+    <div class="work-grid">
+      <article class="work-card">
+        <h3>Work Example One</h3>
+        <p>Describe what this project was, your role, and the result.</p>
+        <a href="#" class="link">View details →</a>
+      </article>
+      <article class="work-card">
+        <h3>Work Example Two</h3>
+        <p>Describe what this project was, your role, and the result.</p>
+        <a href="#" class="link">View details →</a>
+      </article>
+      <article class="work-card">
+        <h3>Work Example Three</h3>
+        <p>Describe what this project was, your role, and the result.</p>
+        <a href="#" class="link">View details →</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section">
+    <div class="about">
+      <div class="section-head left">
+        <h2>About</h2>
+      </div>
+      <p>
+        Write a couple of sentences about yourself here — who you are, what you
+        do, and what you're looking for. Keep it friendly and short.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section section-alt">
+    <div class="section-head">
+      <h2>Get in touch</h2>
+      <p>Want to work together? Reach out.</p>
+    </div>
+    <div class="contact-actions">
+      <a class="btn btn-primary" href="mailto:you@example.com">Email me</a>
+      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Your Name. Built with care.</p>
+  </footer>
+
+  <!-- ============ VIDEO PLAYER POPUP (plays on-site, no redirect) ============ -->
+  <div id="player" class="player-overlay" hidden>
+    <button id="player-close" class="player-close" aria-label="Close video">✕</button>
+    <div class="player-box">
+      <video id="player-video" controls playsinline preload="metadata"></video>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
