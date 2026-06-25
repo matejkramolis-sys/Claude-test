@@ -186,119 +186,177 @@ body.has-pointer .spotlight { opacity: 0.18; }
 .cam {
   pointer-events: auto;
   width: min(760px, 94vw);
-  aspect-ratio: 3.3 / 1;
+  aspect-ratio: 3.05 / 1;
   container-type: inline-size;
   position: relative;
-  filter: drop-shadow(0 16px 38px rgba(0,0,0,0.6));
+  filter: drop-shadow(0 18px 42px rgba(0,0,0,0.72));
 }
 
-/* the camera body shell */
+/* the camera body shell — satin black metal, studio-lit */
 .cam-body {
-  position: absolute; inset: 0;
-  border-radius: 7cqw 7cqw 5cqw 5cqw;
-  background: linear-gradient(180deg, #34353b 0%, #1c1d22 22%, #0b0b0d 100%);
+  position: absolute; inset: 0; overflow: hidden;
+  border-radius: 11cqw 10cqw 8cqw 9cqw / 20cqw 17cqw 15cqw 16cqw;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 6%),
+    radial-gradient(150% 105% at 50% -38%, rgba(176,182,196,0.55), rgba(176,182,196,0) 52%),
+    radial-gradient(60% 140% at 50% 120%, rgba(0,0,0,0.55), transparent 60%),
+    linear-gradient(180deg, #51525a 0%, #34353c 7%, #202126 24%, #131418 50%, #0a0a0d 100%);
   border: 1px solid #000;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.10), inset 0 -3cqw 6cqw rgba(0,0,0,0.7);
-  display: flex; flex-direction: column; justify-content: center; gap: 1cqw;
-  padding: 2.6cqw 4cqw;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.40),
+    inset 0 -3.4cqw 6cqw rgba(0,0,0,0.8),
+    inset 0 0 0 1.5px rgba(0,0,0,0.5);
+  display: flex; flex-direction: column; justify-content: center; gap: 0.6cqw;
+  padding: 2.8cqw 5cqw;
 }
-.cam-deck  { display: flex; align-items: center; gap: 3cqw; }
-.cam-front { display: flex; align-items: center; justify-content: flex-end; gap: 2.4cqw; }
+/* leatherette grip across the lower body */
+.cam-body::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 48%; z-index: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.045) 0.5px, transparent 1.1px),
+    radial-gradient(rgba(0,0,0,0.5) 0.5px, transparent 1.1px);
+  background-size: 3.4px 3.4px, 3.4px 3.4px; background-position: 0 0, 1.7px 1.7px;
+  opacity: 0.7; pointer-events: none;
+}
+/* soft studio light from the top */
+.cam-body::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(75% 130% at 50% -25%, rgba(255,255,255,0.12), transparent 48%);
+}
+.cam-deck  { position: relative; z-index: 1; display: flex; align-items: center; gap: 3cqw; }
+.cam-front { position: relative; z-index: 1; display: flex; align-items: center; justify-content: flex-end; gap: 2.4cqw; }
 
 /* viewfinder/flash hump with hot shoe + flash bolt */
-.cam-hump { position: relative; flex: none; width: 14cqw; height: 8cqw; align-self: center; }
+.cam-hump { position: relative; flex: none; width: 15cqw; height: 8.5cqw; align-self: center; }
 .cam-hump::before {
-  content: ""; position: absolute; left: 6%; right: 6%; top: 0; bottom: 0;
-  background: linear-gradient(180deg, #393a40, #141417);
-  clip-path: polygon(12% 100%, 26% 0, 74% 0, 88% 100%);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.14);
+  content: ""; position: absolute; left: 2%; right: 2%; top: -1.6cqw; bottom: -0.6cqw;
+  background: linear-gradient(180deg, #62636b 0%, #3a3b42 22%, #1b1c21 62%, #0c0c0f 100%);
+  clip-path: polygon(15% 100%, 29% 0, 71% 0, 85% 100%);
+  box-shadow: inset 0 2px 1.5px rgba(255,255,255,0.40), inset 0 -1cqw 1.2cqw rgba(0,0,0,0.7);
+  border-radius: 1cqw 1cqw 0 0;
 }
 .cam-shoe {
-  position: absolute; top: -1.4cqw; left: 50%; transform: translateX(-50%); z-index: 2;
-  width: 6cqw; height: 2.2cqw; border-radius: 0.6cqw;
-  background: linear-gradient(180deg, #3f4046, #15161a);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.14), 0 0.4cqw 0.6cqw rgba(0,0,0,0.5);
+  position: absolute; top: -2cqw; left: 50%; transform: translateX(-50%); z-index: 2;
+  width: 6.5cqw; height: 2.4cqw; border-radius: 0.7cqw;
+  background: linear-gradient(180deg, #54555c 0%, #2a2b30 40%, #101115 100%);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), inset 0 -0.4cqw 0.6cqw rgba(0,0,0,0.7), 0 0.5cqw 0.7cqw rgba(0,0,0,0.6);
 }
+.cam-shoe::after { content: ""; position: absolute; inset: 28% 18%; border-radius: 0.3cqw;
+  background: linear-gradient(180deg, #0a0a0c, #1a1b1f); box-shadow: inset 0 1px 2px rgba(0,0,0,0.9); }
 .cam-bolt {
-  position: absolute; bottom: 0.4cqw; left: 50%; transform: translateX(-50%); z-index: 1;
-  color: #eaeaef; font-size: 3cqw; line-height: 1; text-shadow: 0 0 0.6cqw rgba(255,255,255,0.4);
+  position: absolute; bottom: 0.7cqw; left: 50%; transform: translateX(-50%); z-index: 1;
+  color: #e9e9ef; font-size: 3cqw; line-height: 1;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.8), 0 0 0.8cqw rgba(200,210,255,0.45);
 }
 
-/* info LCD */
+/* info LCD — dark glass */
 .cam-lcd {
-  flex: none; width: 13cqw; height: 6cqw; border-radius: 1cqw;
-  background: linear-gradient(160deg, #0f1218, #04050a);
-  box-shadow: inset 0 0.5cqw 1.2cqw rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.06);
+  flex: none; width: 13cqw; height: 6cqw; border-radius: 0.9cqw; position: relative; overflow: hidden;
+  background: linear-gradient(160deg, #1b212c 0%, #0c1016 45%, #04060a 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), inset 0 0.5cqw 1.2cqw rgba(0,0,0,0.9),
+    0 1px 0 rgba(255,255,255,0.08), 0 0.3cqw 0.6cqw rgba(0,0,0,0.5);
 }
+.cam-lcd::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(118deg, transparent 52%, rgba(255,255,255,0.08) 60%, transparent 66%); }
 
-/* knurled dials (rotate freely) */
+/* milled metal dials (rotate freely) */
 .cam-knob {
   flex: none; aspect-ratio: 1; border: none; padding: 0; cursor: grab; position: relative;
   border-radius: 50%; transform: rotate(0deg);
-  background: repeating-conic-gradient(from 0deg, #3a3b41 0deg 7deg, #1e1f23 7deg 14deg);
-  box-shadow: 0 0.5cqw 0.8cqw rgba(0,0,0,0.6), inset 0 0 0 0.4cqw #0f0f12, inset 0 0 1.4cqw rgba(0,0,0,0.8);
+  background:
+    radial-gradient(circle, transparent 52%, rgba(0,0,0,0.45) 74%, rgba(0,0,0,0.85) 100%),
+    repeating-conic-gradient(from 0deg, #54555d 0deg 2.6deg, #303138 2.6deg 4deg, #17181c 4deg 6deg);
+  box-shadow:
+    0 0.7cqw 1.1cqw rgba(0,0,0,0.7),
+    0 0 0 0.5cqw rgba(0,0,0,0.45),
+    inset 0 0 0 0.35cqw #0b0b0e,
+    inset 0 0.4cqw 0.5cqw rgba(255,255,255,0.18),
+    inset 0 -0.6cqw 1cqw rgba(0,0,0,0.85);
   transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; touch-action: none;
 }
 .cam-knob:active { cursor: grabbing; }
-.cam-knob::before {
-  content: ""; position: absolute; inset: 24%; border-radius: 50%;
-  background: radial-gradient(circle at 36% 30%, #3b3c41, #131316);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.14);
+.cam-knob::before { /* raised center cap */
+  content: ""; position: absolute; inset: 22%; border-radius: 50%;
+  background: radial-gradient(circle at 38% 30%, #4a4b52 0%, #25262b 52%, #101114 100%);
+  box-shadow: inset 0 0.4cqw 0.6cqw rgba(255,255,255,0.22), inset 0 -0.5cqw 0.8cqw rgba(0,0,0,0.8),
+    0 0 0 0.25cqw rgba(0,0,0,0.6);
 }
 .cam-knob .ptr {
-  position: absolute; top: 6%; left: 50%; transform: translateX(-50%);
-  width: 0.7cqw; height: 2.4cqw; border-radius: 0.5cqw; background: #f0f0f0;
-  box-shadow: 0 0 0.6cqw rgba(255,255,255,0.5);
+  position: absolute; top: 7%; left: 50%; transform: translateX(-50%); z-index: 2;
+  width: 0.7cqw; height: 2.6cqw; border-radius: 0.5cqw; background: #f3f3f5;
+  box-shadow: 0 0 0.7cqw rgba(255,255,255,0.6);
 }
 .cam-mode { width: 15cqw; }
 .cam-expo { width: 11.5cqw; }
 
-/* C1 button */
+/* C1 record button — recessed metal; ring turns into a red LED when armed */
 .cam-c1btn {
   flex: none; width: 7cqw; aspect-ratio: 1; border-radius: 50%; border: none; cursor: pointer;
-  color: #b9b9c0; font: inherit; font-weight: 700; font-size: 2.2cqw; position: relative;
-  background: radial-gradient(circle at 38% 30%, #46474e, #161719);
-  box-shadow: 0 0.4cqw 0.8cqw rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.2), 0 0 0 0.4cqw #0c0c0e;
-  transition: transform 0.1s;
+  color: #b9b9c0; font: inherit; font-weight: 700; font-size: 2.1cqw; position: relative;
+  background: radial-gradient(circle at 38% 28%, #50515a 0%, #25262b 55%, #0f0f12 100%);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.8);
+  box-shadow: 0 0.5cqw 0.9cqw rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.3),
+    inset 0 -0.5cqw 0.7cqw rgba(0,0,0,0.7), 0 0 0 0.5cqw #0a0a0c;
+  transition: box-shadow 0.3s, color 0.3s, transform 0.1s;
 }
-.cam-c1btn:active { transform: scale(0.93); }
-.cam-c1btn::after {
-  content: ""; position: absolute; inset: -30%; border-radius: 50%;
-  border: 0.4cqw solid #ff3b30; opacity: 0; transform: scale(0.6); pointer-events: none;
+.cam-c1btn:active { transform: scale(0.95); }
+.cam-c1btn.rec {
+  color: #ff6a5d;
+  box-shadow: 0 0.5cqw 0.9cqw rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.3),
+    inset 0 -0.5cqw 0.7cqw rgba(0,0,0,0.7),
+    0 0 0 0.5cqw rgba(255,45,35,0.95), 0 0 1cqw rgba(255,50,38,0.9), 0 0 2.6cqw rgba(255,45,35,0.7);
+  animation: recPulse 1.6s ease-in-out infinite;
 }
-.cam-c1btn.press::after { animation: c1ring 0.55s ease-out; }
-@keyframes c1ring { 0% { opacity: 0.95; transform: scale(0.55); } 100% { opacity: 0; transform: scale(1.4); } }
+@keyframes recPulse {
+  0%, 100% { box-shadow: 0 0.5cqw 0.9cqw rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.3), inset 0 -0.5cqw 0.7cqw rgba(0,0,0,0.7), 0 0 0 0.5cqw rgba(255,45,35,0.95), 0 0 1cqw rgba(255,50,38,0.9), 0 0 2.6cqw rgba(255,45,35,0.6); }
+  50% { box-shadow: 0 0.5cqw 0.9cqw rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.3), inset 0 -0.5cqw 0.7cqw rgba(0,0,0,0.7), 0 0 0 0.5cqw rgba(255,70,55,1), 0 0 1.6cqw rgba(255,70,55,1), 0 0 3.6cqw rgba(255,55,42,0.85); }
+}
 
-/* power switch (slides ON=top .. OFF=bottom with scroll) */
-.cam-power { flex: none; display: flex; flex-direction: column; align-items: center; gap: 0.7cqw; margin-left: 1cqw; }
+/* power switch — recessed slot + metal knob; slides with scroll */
+.cam-power { flex: none; display: flex; flex-direction: column; align-items: center; gap: 0.6cqw; margin-left: 1.4cqw; }
 .pw-lab { background: none; border: none; cursor: pointer; font: inherit; padding: 0;
-  color: #c6c6cc; font-weight: 700; font-size: 1.7cqw; letter-spacing: 0.12em; transition: color 0.2s; }
+  color: #aeaeb6; font-weight: 700; font-size: 1.55cqw; letter-spacing: 0.14em;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.9); transition: color 0.2s; }
 .pw-lab:hover { color: #fff; }
 .pw-track {
-  position: relative; width: 3.6cqw; height: 7cqw; border-radius: 2cqw;
-  background: linear-gradient(180deg, #0e0e10, #08080a);
-  box-shadow: inset 0 0 1.4cqw rgba(0,0,0,0.9), inset 0 0 0 1px #2a2b30;
+  position: relative; width: 3.8cqw; height: 7.2cqw; border-radius: 2cqw;
+  background: linear-gradient(180deg, #050506 0%, #131418 100%);
+  box-shadow: inset 0 0.4cqw 0.9cqw rgba(0,0,0,0.95), inset 0 -1px 1px rgba(255,255,255,0.05), inset 0 0 0 1px #000;
 }
 .pw-knob {
   position: absolute; left: 50%; transform: translateX(-50%); top: 6%;
-  width: 3cqw; height: 3cqw; border-radius: 1.3cqw;
-  background: radial-gradient(circle at 40% 30%, #57585f, #1a1b1f);
-  box-shadow: 0 0.3cqw 0.5cqw rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.25);
+  width: 3.1cqw; height: 3.1cqw; border-radius: 50%;
+  background: radial-gradient(circle at 38% 28%, #6f7077 0%, #3a3b41 45%, #18191d 100%);
+  box-shadow: 0 0.4cqw 0.6cqw rgba(0,0,0,0.8), inset 0 1px 1.5px rgba(255,255,255,0.45), inset 0 -1px 2px rgba(0,0,0,0.7);
   transition: top 0.15s linear;
 }
 
-/* MENU / INSTAGRAM pills */
+/* MENU / INSTAGRAM — soft-touch beveled buttons */
 .cam-pill {
   display: inline-flex; align-items: center; gap: 1.4cqw; cursor: pointer;
-  padding: 1.8cqw 2.6cqw; border-radius: 1.6cqw; font: inherit; font-weight: 700;
-  font-size: 2.4cqw; letter-spacing: 0.06em; color: #f4f4f5; white-space: nowrap;
-  background: linear-gradient(180deg, #27282c, #121214);
-  border: 1px solid #45464c;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 0.3cqw 0.6cqw rgba(0,0,0,0.5);
-  transition: transform 0.18s, border-color 0.2s, box-shadow 0.2s;
+  padding: 1.9cqw 2.8cqw; border-radius: 1.6cqw; font: inherit; font-weight: 700;
+  font-size: 2.4cqw; letter-spacing: 0.06em; color: #f1f1f3; white-space: nowrap;
+  background: linear-gradient(180deg, #303137 0%, #1a1b1f 48%, #0e0e11 100%);
+  border: 1px solid #050506;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 2px rgba(0,0,0,0.7), 0 0.5cqw 0.9cqw rgba(0,0,0,0.6);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.8);
+  transition: transform 0.18s, box-shadow 0.2s, filter 0.2s;
 }
-.cam-pill:hover { transform: translateY(-2px); border-color: #7c7d84; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 1cqw 2cqw rgba(0,0,0,0.6); }
+.cam-pill:hover { transform: translateY(-2px); filter: brightness(1.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 2px rgba(0,0,0,0.7), 0 1cqw 1.8cqw rgba(0,0,0,0.7); }
 .cam :focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
+
+/* hamburger icon */
+.ic-menu { width: 3.4cqw; height: 2.6cqw; flex: none; position: relative; }
+.ic-menu::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 0.45cqw;
+  background: currentColor; border-radius: 0.4cqw;
+  box-shadow: 0 1.1cqw 0 currentColor, 0 2.2cqw 0 currentColor;
+}
+/* instagram icon */
+.ic-ig { width: 3.2cqw; height: 3.2cqw; border-radius: 1cqw; border: 0.4cqw solid currentColor; position: relative; flex: none; }
+.ic-ig::before { content: ""; position: absolute; inset: 0.6cqw; border: 0.4cqw solid currentColor; border-radius: 50%; }
+.ic-ig::after { content: ""; position: absolute; top: 0.3cqw; right: 0.3cqw; width: 0.5cqw; height: 0.5cqw; border-radius: 50%; background: currentColor; }
 
 /* hamburger icon */
 .ic-menu { width: 3.4cqw; height: 2.6cqw; flex: none; position: relative; }

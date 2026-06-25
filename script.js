@@ -95,13 +95,11 @@ if (pwKnob) {
   sync();
 }
 
-// ---------- C1 press feedback ----------
+// ---------- C1 = record toggle (red LED ring on/off) ----------
 document.querySelectorAll('[data-c1]').forEach((btn) => {
   btn.addEventListener('click', () => {
-    btn.classList.remove('press');
-    void btn.offsetWidth;        // restart animation
-    btn.classList.add('press');
-    setTimeout(() => btn.classList.remove('press'), 560);
+    const on = btn.classList.toggle('rec');
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
 });
 
