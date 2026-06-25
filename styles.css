@@ -14,7 +14,7 @@
   --metal-2: #16161a;
   --radius: 12px;
   --maxw: 1080px;
-  --bar-h: 250px;
+  --bar-h: 330px;
   font-synthesis: none;
 }
 
@@ -181,194 +181,47 @@ body.has-pointer .spotlight { opacity: 0.18; }
   pointer-events: none;
 }
 /* ============================================================
-   CAMERA MENU — built entirely in CSS (no image)
+   CAMERA MENU — your photo (cut out) + working overlays
    ============================================================ */
-.cam {
-  pointer-events: auto;
-  width: min(760px, 94vw);
-  aspect-ratio: 3.05 / 1;
-  container-type: inline-size;
-  position: relative;
-  filter: drop-shadow(0 18px 42px rgba(0,0,0,0.72));
+.cam-photo {
+  pointer-events: auto; position: relative;
+  width: min(900px, 96vw);
+  aspect-ratio: 1371 / 480;
+  filter: drop-shadow(0 16px 38px rgba(0,0,0,0.6));
 }
+.cam-base { width: 100%; height: 100%; object-fit: contain; display: block; -webkit-user-drag: none; user-select: none; }
 
-/* the camera body shell — satin black metal, studio-lit */
-.cam-body {
-  position: absolute; inset: 0; overflow: hidden;
-  border-radius: 11cqw 10cqw 8cqw 9cqw / 20cqw 17cqw 15cqw 16cqw;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 6%),
-    radial-gradient(150% 105% at 50% -38%, rgba(176,182,196,0.55), rgba(176,182,196,0) 52%),
-    radial-gradient(60% 140% at 50% 120%, rgba(0,0,0,0.55), transparent 60%),
-    linear-gradient(180deg, #51525a 0%, #34353c 7%, #202126 24%, #131418 50%, #0a0a0d 100%);
-  border: 1px solid #000;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.40),
-    inset 0 -3.4cqw 6cqw rgba(0,0,0,0.8),
-    inset 0 0 0 1.5px rgba(0,0,0,0.5);
-  display: flex; flex-direction: column; justify-content: center; gap: 0.6cqw;
-  padding: 2.8cqw 5cqw;
-}
-/* leatherette grip across the lower body */
-.cam-body::before {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 48%; z-index: 0;
-  background-image:
-    radial-gradient(rgba(255,255,255,0.045) 0.5px, transparent 1.1px),
-    radial-gradient(rgba(0,0,0,0.5) 0.5px, transparent 1.1px);
-  background-size: 3.4px 3.4px, 3.4px 3.4px; background-position: 0 0, 1.7px 1.7px;
-  opacity: 0.7; pointer-events: none;
-}
-/* soft studio light from the top */
-.cam-body::after {
-  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(75% 130% at 50% -25%, rgba(255,255,255,0.12), transparent 48%);
-}
-.cam-deck  { position: relative; z-index: 1; display: flex; align-items: center; gap: 3cqw; }
-.cam-front { position: relative; z-index: 1; display: flex; align-items: center; justify-content: flex-end; gap: 2.4cqw; }
+/* transparent click zones (only real controls act) */
+.cam-hot { position: absolute; border: none; background: transparent; cursor: pointer; padding: 0; border-radius: 8px; z-index: 4; }
+.cam-hot:focus-visible { outline: 2px solid rgba(255,255,255,0.85); outline-offset: 2px; }
+.menu-hit { left: 58.8%; top: 60%;   width: 18.5%; height: 24.6%; }
+.ig-hit   { left: 77.3%; top: 60%;   width: 19%;   height: 24.6%; }
+.pw-on    { left: 81.5%; top: 18%;   width: 9%;    height: 7%; }
+.pw-off   { left: 81.5%; top: 10.5%; width: 9%;    height: 6.8%; }
 
-/* viewfinder/flash hump with hot shoe + flash bolt */
-.cam-hump { position: relative; flex: none; width: 15cqw; height: 8.5cqw; align-self: center; }
-.cam-hump::before {
-  content: ""; position: absolute; left: 2%; right: 2%; top: -1.6cqw; bottom: -0.6cqw;
-  background: linear-gradient(180deg, #62636b 0%, #3a3b42 22%, #1b1c21 62%, #0c0c0f 100%);
-  clip-path: polygon(15% 100%, 29% 0, 71% 0, 85% 100%);
-  box-shadow: inset 0 2px 1.5px rgba(255,255,255,0.40), inset 0 -1cqw 1.2cqw rgba(0,0,0,0.7);
-  border-radius: 1cqw 1cqw 0 0;
-}
-.cam-shoe {
-  position: absolute; top: -2cqw; left: 50%; transform: translateX(-50%); z-index: 2;
-  width: 6.5cqw; height: 2.4cqw; border-radius: 0.7cqw;
-  background: linear-gradient(180deg, #54555c 0%, #2a2b30 40%, #101115 100%);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), inset 0 -0.4cqw 0.6cqw rgba(0,0,0,0.7), 0 0.5cqw 0.7cqw rgba(0,0,0,0.6);
-}
-.cam-shoe::after { content: ""; position: absolute; inset: 28% 18%; border-radius: 0.3cqw;
-  background: linear-gradient(180deg, #0a0a0c, #1a1b1f); box-shadow: inset 0 1px 2px rgba(0,0,0,0.9); }
-.cam-bolt {
-  position: absolute; bottom: 0.7cqw; left: 50%; transform: translateX(-50%); z-index: 1;
-  color: #e9e9ef; font-size: 3cqw; line-height: 1;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.8), 0 0 0.8cqw rgba(200,210,255,0.45);
-}
+/* rotating dials (slide/drag across to spin) */
+.cam-dialimg { position: absolute; z-index: 2; cursor: grab; transform-origin: center center;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; touch-action: none; -webkit-user-drag: none; }
+.cam-dialimg:active { cursor: grabbing; }
+.dm { left: 49.9%;  top: 31.46%; width: 7.44%; height: 21.25%; }
+.de { left: 60.76%; top: 29.58%; width: 8.02%; height: 22.92%; }
 
-/* info LCD — dark glass */
-.cam-lcd {
-  flex: none; width: 13cqw; height: 6cqw; border-radius: 0.9cqw; position: relative; overflow: hidden;
-  background: linear-gradient(160deg, #1b212c 0%, #0c1016 45%, #04060a 100%);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), inset 0 0.5cqw 1.2cqw rgba(0,0,0,0.9),
-    0 1px 0 rgba(255,255,255,0.08), 0 0.3cqw 0.6cqw rgba(0,0,0,0.5);
-}
-.cam-lcd::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(118deg, transparent 52%, rgba(255,255,255,0.08) 60%, transparent 66%); }
-
-/* milled metal dials (rotate freely) */
-.cam-knob {
-  flex: none; aspect-ratio: 1; border: none; padding: 0; cursor: grab; position: relative;
-  border-radius: 50%; transform: rotate(0deg);
-  background:
-    radial-gradient(circle, transparent 52%, rgba(0,0,0,0.45) 74%, rgba(0,0,0,0.85) 100%),
-    repeating-conic-gradient(from 0deg, #54555d 0deg 2.6deg, #303138 2.6deg 4deg, #17181c 4deg 6deg);
-  box-shadow:
-    0 0.7cqw 1.1cqw rgba(0,0,0,0.7),
-    0 0 0 0.5cqw rgba(0,0,0,0.45),
-    inset 0 0 0 0.35cqw #0b0b0e,
-    inset 0 0.4cqw 0.5cqw rgba(255,255,255,0.18),
-    inset 0 -0.6cqw 1cqw rgba(0,0,0,0.85);
-  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; touch-action: none;
-}
-.cam-knob:active { cursor: grabbing; }
-.cam-knob::before { /* raised center cap */
-  content: ""; position: absolute; inset: 22%; border-radius: 50%;
-  background: radial-gradient(circle at 38% 30%, #4a4b52 0%, #25262b 52%, #101114 100%);
-  box-shadow: inset 0 0.4cqw 0.6cqw rgba(255,255,255,0.22), inset 0 -0.5cqw 0.8cqw rgba(0,0,0,0.8),
-    0 0 0 0.25cqw rgba(0,0,0,0.6);
-}
-.cam-knob .ptr {
-  position: absolute; top: 7%; left: 50%; transform: translateX(-50%); z-index: 2;
-  width: 0.7cqw; height: 2.6cqw; border-radius: 0.5cqw; background: #f3f3f5;
-  box-shadow: 0 0 0.7cqw rgba(255,255,255,0.6);
-}
-.cam-mode { width: 15cqw; }
-.cam-expo { width: 11.5cqw; }
-
-/* C1 record button — recessed metal; ring turns into a red LED when armed */
-.cam-c1btn {
-  flex: none; width: 7cqw; aspect-ratio: 1; border-radius: 50%; border: none; cursor: pointer;
-  color: #b9b9c0; font: inherit; font-weight: 700; font-size: 2.1cqw; position: relative;
-  background: radial-gradient(circle at 38% 28%, #50515a 0%, #25262b 55%, #0f0f12 100%);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.8);
-  box-shadow: 0 0.5cqw 0.9cqw rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.3),
-    inset 0 -0.5cqw 0.7cqw rgba(0,0,0,0.7), 0 0 0 0.5cqw #0a0a0c;
-  transition: box-shadow 0.3s, color 0.3s, transform 0.1s;
-}
-.cam-c1btn:active { transform: scale(0.95); }
-.cam-c1btn.rec {
-  color: #ff6a5d;
-  box-shadow: 0 0.5cqw 0.9cqw rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.3),
-    inset 0 -0.5cqw 0.7cqw rgba(0,0,0,0.7),
-    0 0 0 0.5cqw rgba(255,45,35,0.95), 0 0 1cqw rgba(255,50,38,0.9), 0 0 2.6cqw rgba(255,45,35,0.7);
-  animation: recPulse 1.6s ease-in-out infinite;
-}
+/* C1 record LED ring (toggle) */
+.cam-c1 { left: 71.3%; top: 33.7%; width: 4.96%; height: 14.2%; border-radius: 50%; }
+.cam-c1::after { content: ""; position: absolute; inset: -12%; border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(255,45,35,0); transition: box-shadow 0.3s; pointer-events: none; }
+.cam-c1.rec::after { animation: recPulse 1.6s ease-in-out infinite; }
 @keyframes recPulse {
-  0%, 100% { box-shadow: 0 0.5cqw 0.9cqw rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.3), inset 0 -0.5cqw 0.7cqw rgba(0,0,0,0.7), 0 0 0 0.5cqw rgba(255,45,35,0.95), 0 0 1cqw rgba(255,50,38,0.9), 0 0 2.6cqw rgba(255,45,35,0.6); }
-  50% { box-shadow: 0 0.5cqw 0.9cqw rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.3), inset 0 -0.5cqw 0.7cqw rgba(0,0,0,0.7), 0 0 0 0.5cqw rgba(255,70,55,1), 0 0 1.6cqw rgba(255,70,55,1), 0 0 3.6cqw rgba(255,55,42,0.85); }
+  0%,100% { box-shadow: 0 0 0 2px rgba(255,45,35,0.95), 0 0 9px 1px rgba(255,50,38,0.85), 0 0 20px 4px rgba(255,45,35,0.55); }
+  50%     { box-shadow: 0 0 0 2px rgba(255,75,58,1), 0 0 15px 3px rgba(255,75,58,1), 0 0 30px 6px rgba(255,55,42,0.8); }
 }
 
-/* power switch — recessed slot + metal knob; slides with scroll */
-.cam-power { flex: none; display: flex; flex-direction: column; align-items: center; gap: 0.6cqw; margin-left: 1.4cqw; }
-.pw-lab { background: none; border: none; cursor: pointer; font: inherit; padding: 0;
-  color: #aeaeb6; font-weight: 700; font-size: 1.55cqw; letter-spacing: 0.14em;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.9); transition: color 0.2s; }
-.pw-lab:hover { color: #fff; }
-.pw-track {
-  position: relative; width: 3.8cqw; height: 7.2cqw; border-radius: 2cqw;
-  background: linear-gradient(180deg, #050506 0%, #131418 100%);
-  box-shadow: inset 0 0.4cqw 0.9cqw rgba(0,0,0,0.95), inset 0 -1px 1px rgba(255,255,255,0.05), inset 0 0 0 1px #000;
-}
-.pw-knob {
-  position: absolute; left: 50%; transform: translateX(-50%); top: 6%;
-  width: 3.1cqw; height: 3.1cqw; border-radius: 50%;
-  background: radial-gradient(circle at 38% 28%, #6f7077 0%, #3a3b41 45%, #18191d 100%);
-  box-shadow: 0 0.4cqw 0.6cqw rgba(0,0,0,0.8), inset 0 1px 1.5px rgba(255,255,255,0.45), inset 0 -1px 2px rgba(0,0,0,0.7);
-  transition: top 0.15s linear;
-}
-
-/* MENU / INSTAGRAM — soft-touch beveled buttons */
-.cam-pill {
-  display: inline-flex; align-items: center; gap: 1.4cqw; cursor: pointer;
-  padding: 1.9cqw 2.8cqw; border-radius: 1.6cqw; font: inherit; font-weight: 700;
-  font-size: 2.4cqw; letter-spacing: 0.06em; color: #f1f1f3; white-space: nowrap;
-  background: linear-gradient(180deg, #303137 0%, #1a1b1f 48%, #0e0e11 100%);
-  border: 1px solid #050506;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 2px rgba(0,0,0,0.7), 0 0.5cqw 0.9cqw rgba(0,0,0,0.6);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.8);
-  transition: transform 0.18s, box-shadow 0.2s, filter 0.2s;
-}
-.cam-pill:hover { transform: translateY(-2px); filter: brightness(1.18);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 2px rgba(0,0,0,0.7), 0 1cqw 1.8cqw rgba(0,0,0,0.7); }
-.cam :focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
-
-/* hamburger icon */
-.ic-menu { width: 3.4cqw; height: 2.6cqw; flex: none; position: relative; }
-.ic-menu::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 0.45cqw;
-  background: currentColor; border-radius: 0.4cqw;
-  box-shadow: 0 1.1cqw 0 currentColor, 0 2.2cqw 0 currentColor;
-}
-/* instagram icon */
-.ic-ig { width: 3.2cqw; height: 3.2cqw; border-radius: 1cqw; border: 0.4cqw solid currentColor; position: relative; flex: none; }
-.ic-ig::before { content: ""; position: absolute; inset: 0.6cqw; border: 0.4cqw solid currentColor; border-radius: 50%; }
-.ic-ig::after { content: ""; position: absolute; top: 0.3cqw; right: 0.3cqw; width: 0.5cqw; height: 0.5cqw; border-radius: 50%; background: currentColor; }
-
-/* hamburger icon */
-.ic-menu { width: 3.4cqw; height: 2.6cqw; flex: none; position: relative; }
-.ic-menu::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 0.45cqw;
-  background: currentColor; border-radius: 0.4cqw;
-  box-shadow: 0 1.1cqw 0 currentColor, 0 2.2cqw 0 currentColor;
-}
-/* instagram icon */
-.ic-ig { width: 3.2cqw; height: 3.2cqw; border-radius: 1cqw; border: 0.4cqw solid currentColor; position: relative; flex: none; }
-.ic-ig::before { content: ""; position: absolute; inset: 0.6cqw; border: 0.4cqw solid currentColor; border-radius: 50%; }
-.ic-ig::after { content: ""; position: absolute; top: 0.3cqw; right: 0.3cqw; width: 0.5cqw; height: 0.5cqw; border-radius: 50%; background: currentColor; }
+/* ON/OFF sliding indicator (slides with scroll) */
+.pw-knob { position: absolute; left: 81.5%; top: 20.5%; z-index: 3;
+  width: clamp(11px, 1.3vw, 18px); height: clamp(7px, 0.9vw, 11px); border-radius: 3px;
+  background: linear-gradient(180deg, #f1f2f5 0%, #b6b7bd 45%, #5d5e65 100%);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 1px rgba(0,0,0,0.5);
+  pointer-events: none; transition: top 0.15s linear; }
 
 /* ---------- menu overlay ---------- */
 .menu-overlay {
@@ -409,8 +262,6 @@ body.has-pointer .spotlight { opacity: 0.18; }
 /* ---------- responsive ---------- */
 @media (max-width: 560px) {
   :root { --bar-h: 150px; }
-  .cam { aspect-ratio: 2.7 / 1; }   /* a touch taller so controls stay legible */
-  .cam-lcd { display: none; }
 }
 
 /* ---------- reduced motion ---------- */

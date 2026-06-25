@@ -84,7 +84,7 @@ menu.querySelectorAll('[data-jump]').forEach((a) => a.addEventListener('click', 
 // ---------- power switch knob = scroll position (ON at top, OFF at bottom) ----------
 const pwKnob = document.getElementById('pwKnob');
 if (pwKnob) {
-  const TOP_PCT = 6, BOTTOM_PCT = 52;  // knob travel inside the track
+  const TOP_PCT = 20.5, BOTTOM_PCT = 12.3;  // ON (page top, lower mark) .. OFF (page bottom, upper mark)
   const sync = () => {
     const h = document.documentElement;
     const max = h.scrollHeight - h.clientHeight;

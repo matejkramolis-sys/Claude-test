@@ -110,47 +110,26 @@
     <p class="copyright">© <span id="year"></span> TeeCee</p>
   </footer>
 
-  <!-- ============ CAMERA-TOP MENU (fixed bottom, built in CSS) ============ -->
+  <!-- ============ CAMERA-TOP MENU (your photo + working overlays) ============ -->
   <div class="camera-bar" role="navigation" aria-label="Camera menu">
-    <div class="cam">
-      <div class="cam-body">
+    <div class="cam-photo">
+      <img class="cam-base" src="assets/camera-top.png" alt="Camera top menu" />
 
-        <!-- top deck -->
-        <div class="cam-deck">
-          <!-- viewfinder / flash hump -->
-          <span class="cam-hump" aria-hidden="true">
-            <span class="cam-shoe"></span>
-            <span class="cam-bolt">⚡</span>
-          </span>
+      <!-- dials: slide/drag across to spin -->
+      <img class="cam-dialimg dm" src="assets/dial-mode.png" alt="" aria-hidden="true" data-dial />
+      <img class="cam-dialimg de" src="assets/dial-expo.png" alt="" aria-hidden="true" data-dial />
 
-          <span class="cam-lcd" aria-hidden="true"></span>
+      <!-- C1 record button: toggles a red LED ring -->
+      <button class="cam-hot cam-c1" data-c1 aria-pressed="false" aria-label="C1 record"></button>
 
-          <!-- dials: slide across to rotate -->
-          <button class="cam-knob cam-mode" data-dial aria-label="Mode dial"><span class="ptr"></span></button>
-          <button class="cam-knob cam-expo" data-dial aria-label="Exposure dial"><span class="ptr"></span></button>
+      <!-- ON/OFF: indicator slides with scroll; click to jump -->
+      <span class="pw-knob" id="pwKnob" aria-hidden="true"></span>
+      <button class="cam-hot pw-on"  data-action="top"    aria-label="On — scroll to top"></button>
+      <button class="cam-hot pw-off" data-action="bottom" aria-label="Off — scroll to bottom"></button>
 
-          <!-- C1: press feedback -->
-          <button class="cam-c1btn" data-c1 aria-label="C1 button">C1</button>
-
-          <!-- power switch: slides with scroll (ON top, OFF bottom) -->
-          <span class="cam-power">
-            <button class="pw-lab" data-action="top" aria-label="On — scroll to top">ON</button>
-            <span class="pw-track"><span class="pw-knob" id="pwKnob"></span></span>
-            <button class="pw-lab" data-action="bottom" aria-label="Off — scroll to bottom">OFF</button>
-          </span>
-        </div>
-
-        <!-- front buttons -->
-        <div class="cam-front">
-          <button class="cam-pill" data-action="menu" aria-label="Open menu">
-            <span class="ic-menu" aria-hidden="true"></span>MENU
-          </button>
-          <a class="cam-pill" href="https://www.instagram.com/t.castvaj" target="_blank" rel="noopener">
-            <span class="ic-ig" aria-hidden="true"></span>INSTAGRAM
-          </a>
-        </div>
-
-      </div>
+      <!-- MENU + INSTAGRAM -->
+      <button class="cam-hot menu-hit" data-action="menu" aria-label="Open menu"></button>
+      <a class="cam-hot ig-hit" href="https://www.instagram.com/t.castvaj" target="_blank" rel="noopener" aria-label="Instagram"></a>
     </div>
   </div>
 
