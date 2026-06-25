@@ -201,10 +201,10 @@ body.has-pointer .spotlight { opacity: 0.18; }
 }
 .cam-hot[data-press].pressing::after { opacity: 1; }   /* darken only, no scale */
 
-.menu-hit { left: 46.6%; top: 62.5%; width: 20.6%; height: 19%; border-radius: 14px; }
-.ig-hit   { left: 68.4%; top: 62.5%; width: 25%;   height: 19%; border-radius: 14px; }
-.c1-hit   { left: 64.8%; top: 38.2%; width: 5.95%; height: 18.2%; border-radius: 50%; }
-.iso-hit  { left: 71.5%; top: 38.2%; width: 5.95%; height: 18.2%; border-radius: 50%; }
+.menu-hit { left: 49.85%; top: 62.9%; width: 18.9%; height: 19.8%; border-radius: 14px; }
+.ig-hit   { left: 69.5%;  top: 62.9%; width: 25.1%; height: 19.8%; border-radius: 14px; }
+.c1-hit   { left: 61.43%; top: 38.22%; width: 6.11%; height: 18.67%; border-radius: 50%; }
+.iso-hit  { left: 68.34%; top: 38.22%; width: 6.11%; height: 18.67%; border-radius: 50%; }
 
 /* C1 record LED ring (centered on the button) */
 .c1-hit::before { content: ""; position: absolute; inset: -7%; border-radius: 50%;
