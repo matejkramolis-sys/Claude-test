@@ -196,32 +196,30 @@ body.has-pointer .spotlight { opacity: 0.18; }
 .cam-hot:focus-visible { outline: 2px solid rgba(255,255,255,0.85); outline-offset: 2px; }
 .menu-hit { left: 58.8%; top: 60%;   width: 18.5%; height: 24.6%; }
 .ig-hit   { left: 77.3%; top: 60%;   width: 19%;   height: 24.6%; }
-.pw-on    { left: 81.5%; top: 18%;   width: 9%;    height: 7%; }
-.pw-off   { left: 81.5%; top: 10.5%; width: 9%;    height: 6.8%; }
+.pw-on    { left: 82%;   top: 16.5%; width: 9%;    height: 8%; }
+.pw-off   { left: 82%;   top: 8.5%;  width: 9%;    height: 8%; }
 
-/* rotating dials (slide/drag across to spin) */
-.cam-dialimg { position: absolute; z-index: 2; cursor: grab; transform-origin: center center;
-  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; touch-action: none; -webkit-user-drag: none; }
+/* rotating dials (slide/drag across to spin) — centered on each dial */
+.cam-dialimg { position: absolute; z-index: 2; cursor: grab; transform-origin: 50% 50%;
+  transition: transform 0.05s linear; will-change: transform; touch-action: none; -webkit-user-drag: none; }
 .cam-dialimg:active { cursor: grabbing; }
-.dm { left: 49.9%;  top: 31.46%; width: 7.44%; height: 21.25%; }
-.de { left: 60.76%; top: 29.58%; width: 8.02%; height: 22.92%; }
+.dm { left: 50.4%;  top: 30.6%; width: 8.46%; height: 24.17%; }
+.de { left: 60.83%; top: 29.58%; width: 8.17%; height: 23.33%; }
 
-/* C1 record LED ring (toggle) */
-.cam-c1 { left: 71.3%; top: 33.7%; width: 4.96%; height: 14.2%; border-radius: 50%; }
-.cam-c1::after { content: ""; position: absolute; inset: -12%; border-radius: 50%;
+/* power switch — the real button; its nub rotates between ON and OFF with scroll */
+.cam-switch { position: absolute; left: 75.6%; top: 2.7%; width: 7.15%; height: 20.4%;
+  z-index: 2; transform-origin: 50% 50%; transition: transform 0.18s ease-out;
+  pointer-events: none; -webkit-user-drag: none; }
+
+/* C1 record LED ring (toggle), centered on the C1 button */
+.cam-c1 { left: 71.1%; top: 35.2%; width: 5.4%; height: 15.4%; border-radius: 50%; }
+.cam-c1::after { content: ""; position: absolute; inset: -10%; border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(255,45,35,0); transition: box-shadow 0.3s; pointer-events: none; }
 .cam-c1.rec::after { animation: recPulse 1.6s ease-in-out infinite; }
 @keyframes recPulse {
   0%,100% { box-shadow: 0 0 0 2px rgba(255,45,35,0.95), 0 0 9px 1px rgba(255,50,38,0.85), 0 0 20px 4px rgba(255,45,35,0.55); }
   50%     { box-shadow: 0 0 0 2px rgba(255,75,58,1), 0 0 15px 3px rgba(255,75,58,1), 0 0 30px 6px rgba(255,55,42,0.8); }
 }
-
-/* ON/OFF sliding indicator (slides with scroll) */
-.pw-knob { position: absolute; left: 81.5%; top: 20.5%; z-index: 3;
-  width: clamp(11px, 1.3vw, 18px); height: clamp(7px, 0.9vw, 11px); border-radius: 3px;
-  background: linear-gradient(180deg, #f1f2f5 0%, #b6b7bd 45%, #5d5e65 100%);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 1px rgba(0,0,0,0.5);
-  pointer-events: none; transition: top 0.15s linear; }
 
 /* ---------- menu overlay ---------- */
 .menu-overlay {

@@ -119,13 +119,13 @@
       <img class="cam-dialimg dm" src="assets/dial-mode.png" alt="" aria-hidden="true" data-dial />
       <img class="cam-dialimg de" src="assets/dial-expo.png" alt="" aria-hidden="true" data-dial />
 
-      <!-- C1 record button: toggles a red LED ring -->
-      <button class="cam-hot cam-c1" data-c1 aria-pressed="false" aria-label="C1 record"></button>
-
-      <!-- ON/OFF: indicator slides with scroll; click to jump -->
-      <span class="pw-knob" id="pwKnob" aria-hidden="true"></span>
+      <!-- power switch: the real button; its nub rotates ON<->OFF with scroll -->
+      <img class="cam-switch" id="pwDial" src="assets/dial-pwr.png" alt="" aria-hidden="true" />
       <button class="cam-hot pw-on"  data-action="top"    aria-label="On — scroll to top"></button>
       <button class="cam-hot pw-off" data-action="bottom" aria-label="Off — scroll to bottom"></button>
+
+      <!-- C1 record button: toggles a red LED ring -->
+      <button class="cam-hot cam-c1" data-c1 aria-pressed="false" aria-label="C1 record"></button>
 
       <!-- MENU + INSTAGRAM -->
       <button class="cam-hot menu-hit" data-action="menu" aria-label="Open menu"></button>

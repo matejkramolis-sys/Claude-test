@@ -81,15 +81,15 @@ menuClose.addEventListener('click', closeMenu);
 menu.addEventListener('click', (e) => { if (e.target === menu) closeMenu(); });
 menu.querySelectorAll('[data-jump]').forEach((a) => a.addEventListener('click', closeMenu));
 
-// ---------- power switch knob = scroll position (ON at top, OFF at bottom) ----------
-const pwKnob = document.getElementById('pwKnob');
-if (pwKnob) {
-  const TOP_PCT = 20.5, BOTTOM_PCT = 12.3;  // ON (page top, lower mark) .. OFF (page bottom, upper mark)
+// ---------- power switch: the real nub rotates ON<->OFF with scroll ----------
+const pwDial = document.getElementById('pwDial');
+if (pwDial) {
+  const ON_DEG = 124, OFF_DEG = 86;   // nub points at ON (page top) .. OFF (page bottom)
   const sync = () => {
     const h = document.documentElement;
     const max = h.scrollHeight - h.clientHeight;
     const p = max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0; // 0 top(ON) .. 1 bottom(OFF)
-    pwKnob.style.top = (TOP_PCT + p * (BOTTOM_PCT - TOP_PCT)) + '%';
+    pwDial.style.transform = 'rotate(' + (ON_DEG + p * (OFF_DEG - ON_DEG)) + 'deg)';
   };
   addEventListener('scroll', sync, { passive: true });
   sync();
