@@ -142,8 +142,15 @@ body.has-pointer .spotlight { opacity: 0.18; }
 }
 .video-card:hover .thumb { border-color: rgba(232,225,207,0.5); box-shadow: 0 24px 60px rgba(0,0,0,0.6); }
 .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* vertical (9:16) clips: show the full frame, centered, on a blurred fill of itself */
+.video-card.portrait .thumb { background-image: var(--poster); background-size: cover; background-position: center; }
+.video-card.portrait .thumb::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  backdrop-filter: blur(30px) brightness(0.5); -webkit-backdrop-filter: blur(30px) brightness(0.5);
+}
+.video-card.portrait .thumb img { object-fit: contain; position: relative; z-index: 1; }
 .play-badge {
-  position: absolute; width: 60px; height: 60px; border-radius: 50%;
+  position: absolute; z-index: 2; width: 60px; height: 60px; border-radius: 50%;
   background: rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.9); color: #fff;
   display: flex; align-items: center; justify-content: center;
   font-size: 1.2rem; padding-left: 4px; backdrop-filter: blur(2px);
@@ -280,7 +287,7 @@ body.has-pointer .spotlight { opacity: 0.18; }
 .peek.show .peek-panel { transform: perspective(1300px) rotateY(-11deg) scale(1); opacity: 1; }
 .peek.left .peek-panel { transform: perspective(1300px) rotateY(15deg) scale(0.9); }
 .peek.left.show .peek-panel { transform: perspective(1300px) rotateY(11deg) scale(1); }
-.peek-video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+.peek-video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
 .peek-meta { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 18px 14px;
   background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent); }
 .peek-meta strong { display: block; color: #fff; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
@@ -293,8 +300,8 @@ body.has-pointer .spotlight { opacity: 0.18; }
   display: flex; align-items: center; justify-content: center; padding: clamp(16px, 4vw, 48px);
 }
 .player-overlay[hidden] { display: none; }
-.player-box { width: min(100%, 1040px); border-radius: 12px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.7); }
-#player-video { width: 100%; display: block; background: #000; aspect-ratio: 16 / 9; }
+.player-box { display: inline-flex; border-radius: 12px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.7); background: #000; }
+#player-video { display: block; background: #000; width: auto; height: auto; max-width: 92vw; max-height: 86vh; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 560px) {

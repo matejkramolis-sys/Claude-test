@@ -172,14 +172,34 @@ function cardInfo(card) {
 }
 
 let peekHideTimer = null, peekCard = null;
-function showPeek(card) {
-  if (player && !player.hidden) return;           // not while watching full
-  peekCard = card;
-  const d = cardInfo(card);
-  clearTimeout(peekHideTimer);
+
+// aspect ratio for the preview: prefer the loaded video, else the poster image,
+// else fall back to 16:9. Poster matches the clip's orientation, so this is
+// correct immediately (no waiting on video metadata).
+function peekAspect(card) {
+  if (peekVideo.videoWidth && peekVideo.videoHeight) {
+    return peekVideo.videoWidth / peekVideo.videoHeight;
+  }
+  const img = card && card.querySelector('.thumb img');
+  if (img && img.naturalWidth && img.naturalHeight) {
+    return img.naturalWidth / img.naturalHeight;
+  }
+  return 16 / 9;
+}
+
+// size + position the panel to the video's real shape, popped out beside the card
+function placePeek(card) {
+  const ar = peekAspect(card);
+  let W, H;
+  if (ar < 1) {                                   // vertical (9:16-ish)
+    H = Math.min(innerHeight * 0.66, 560);
+    W = H * ar;
+  } else {                                        // horizontal
+    W = Math.min(innerWidth * 0.44, 600);
+    H = W / ar;
+    if (H > innerHeight * 0.7) { H = innerHeight * 0.7; W = H * ar; }
+  }
   const r = card.getBoundingClientRect();
-  const W = Math.min(440, innerWidth * 0.34);
-  const H = W * 9 / 16;
   const gap = 18;
   let left = r.right + gap, side = 'right';
   if (left + W > innerWidth - 12) { left = r.left - gap - W; side = 'left'; }   // flip if no room
@@ -189,13 +209,23 @@ function showPeek(card) {
   peek.style.left = left + 'px'; peek.style.top = top + 'px';
   peek.style.width = W + 'px'; peek.style.height = H + 'px';
   peek.classList.toggle('left', side === 'left');
+}
+
+function showPeek(card) {
+  if (player && !player.hidden) return;           // not while watching full
+  peekCard = card;
+  const d = cardInfo(card);
+  clearTimeout(peekHideTimer);
   peekTitle.textContent = d.title; peekSub.textContent = d.sub;
   if (d.poster) peekVideo.poster = d.poster;
   if (peekVideo.getAttribute('src') !== d.src) { peekVideo.src = d.src; }
+  placePeek(card);                                // size with what we know now
   peek.setAttribute('aria-hidden', 'false');
   requestAnimationFrame(() => peek.classList.add('show'));
   const p = peekVideo.play(); if (p && p.catch) p.catch(() => {});
 }
+// once the real dimensions are known, re-fit (handles vertical clips)
+peekVideo.addEventListener('loadedmetadata', () => { if (peekCard) placePeek(peekCard); });
 function hidePeek() {
   peek.classList.remove('show');
   peekCard = null;
