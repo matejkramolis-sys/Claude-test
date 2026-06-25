@@ -200,9 +200,8 @@ body.has-pointer .spotlight { opacity: 0.18; }
 .pw-off   { left: 82%;   top: 8.5%;  width: 9%;    height: 8%; }
 
 /* rotating dials (slide/drag across to spin) — centered on each dial */
-.cam-dialimg { position: absolute; z-index: 2; cursor: grab; transform-origin: 50% 50%;
-  transition: transform 0.05s linear; will-change: transform; touch-action: none; -webkit-user-drag: none; }
-.cam-dialimg:active { cursor: grabbing; }
+.cam-dialimg { position: absolute; z-index: 2; cursor: pointer; transform-origin: 50% 50%;
+  will-change: transform; touch-action: none; -webkit-user-drag: none; }
 .dm { left: 50.4%;  top: 30.6%; width: 8.46%; height: 24.17%; }
 .de { left: 60.83%; top: 29.58%; width: 8.17%; height: 23.33%; }
 

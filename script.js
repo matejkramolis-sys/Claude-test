@@ -103,24 +103,24 @@ document.querySelectorAll('[data-c1]').forEach((btn) => {
   });
 });
 
-// ---------- dials spin freely as you drag/slide across them ----------
+// ---------- dials: smooth continuous spin while hovered/held (reliable, centered) ----------
 if (!reduceMotion) {
   document.querySelectorAll('[data-dial]').forEach((dial) => {
-    let angle = 0, last = null;
-    const center = () => { const r = dial.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; };
-    dial.addEventListener('pointermove', (e) => {
-      const c = center();
-      const a = Math.atan2(e.clientY - c.y, e.clientX - c.x) * 180 / Math.PI;
-      if (last !== null) {
-        let d = a - last;
-        if (d > 180) d -= 360; else if (d < -180) d += 360;  // shortest path
-        angle += d;
-        dial.style.transition = 'transform 0.05s linear';
-        dial.style.transform = 'rotate(' + angle + 'deg)';
-      }
-      last = a;
-    });
-    dial.addEventListener('pointerleave', () => { last = null; });
+    let angle = 0, spinning = false, lastT = null;
+    const SPEED = 150; // degrees per second
+    function step(t) {
+      if (!spinning) { lastT = null; return; }
+      if (lastT === null) lastT = t;
+      angle += (t - lastT) / 1000 * SPEED; lastT = t;
+      dial.style.transform = 'rotate(' + angle + 'deg)';
+      requestAnimationFrame(step);
+    }
+    const start = () => { if (!spinning) { spinning = true; requestAnimationFrame(step); } };
+    const stop  = () => { spinning = false; };   // holds its position
+    dial.addEventListener('pointerenter', start);
+    dial.addEventListener('pointerleave', stop);
+    dial.addEventListener('pointerdown', start);  // touch
+    dial.addEventListener('pointerup', stop);
   });
 }
 
