@@ -142,24 +142,20 @@
     </nav>
   </div>
 
-  <!-- ============ 3D VIEWING ROOM ============ -->
-  <div id="viewer" class="viewer" hidden>
-    <button id="viewer-close" class="viewer-close" aria-label="Close">✕</button>
-    <div class="viewer-stage" id="viewerStage">
-      <aside class="viewer-list" id="viewerList"></aside>
-      <div class="viewer-panel-wrap">
-        <div class="viewer-panel" id="viewerPanel">
-          <img class="viewer-poster" id="viewerPoster" alt="" />
-          <video class="viewer-video" id="viewerVideo" playsinline preload="metadata"></video>
-          <button class="viewer-play" id="viewerPlay" aria-label="Play">▶</button>
-          <div class="viewer-meta">
-            <h3 id="viewerTitle"></h3>
-            <p id="viewerSub"></p>
-          </div>
-        </div>
-      </div>
+  <!-- ============ HOVER PREVIEW (pops out beside the thumbnail) ============ -->
+  <div id="peek" class="peek" aria-hidden="true">
+    <div class="peek-panel">
+      <video id="peekVideo" muted loop playsinline preload="metadata"></video>
+      <div class="peek-meta"><strong id="peekTitle"></strong><span id="peekSub"></span></div>
     </div>
-    <div class="viewer-hint"><kbd>ESC</kbd> to close &nbsp;·&nbsp; move mouse to explore</div>
+  </div>
+
+  <!-- ============ VIDEO PLAYER (click to watch with sound) ============ -->
+  <div id="player" class="player-overlay" hidden>
+    <button id="player-close" class="player-close" aria-label="Close video">✕</button>
+    <div class="player-box">
+      <video id="player-video" controls playsinline preload="metadata"></video>
+    </div>
   </div>
 
   <script src="script.js"></script>

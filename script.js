@@ -150,108 +150,85 @@ document.querySelectorAll('[data-press]').forEach((el) => {
   track.addEventListener('pointerdown', (e) => { if (e.target === track) scrub(e.clientX); });
 })();
 
-// ---------- 3D viewing room ----------
-const viewer = document.getElementById('viewer');
-const vStage = document.getElementById('viewerStage');
-const vPanel = document.getElementById('viewerPanel');
-const vList = document.getElementById('viewerList');
-const vPoster = document.getElementById('viewerPoster');
-const vVideo = document.getElementById('viewerVideo');
-const vPlay = document.getElementById('viewerPlay');
-const vTitle = document.getElementById('viewerTitle');
-const vSub = document.getElementById('viewerSub');
-const vClose = document.getElementById('viewer-close');
-const BASE_RY = -13, BASE_RX = 6;
+// ---------- hover preview (pops out beside the thumbnail) + click to watch ----------
+const peek = document.getElementById('peek');
+const peekPanel = peek.querySelector('.peek-panel');
+const peekVideo = document.getElementById('peekVideo');
+const peekTitle = document.getElementById('peekTitle');
+const peekSub = document.getElementById('peekSub');
 
-function cardData(card) {
+const player = document.getElementById('player');
+const playerVideo = document.getElementById('player-video');
+const playerClose = document.getElementById('player-close');
+
+function cardInfo(card) {
+  const img = card.querySelector('.thumb img');
   return {
     src: card.getAttribute('data-src'),
-    poster: card.querySelector('.thumb img') ? card.querySelector('.thumb img').getAttribute('src') : '',
+    poster: img ? img.getAttribute('src') : '',
     title: card.querySelector('.vc-title') ? card.querySelector('.vc-title').textContent : '',
     sub: card.querySelector('.vc-sub') ? card.querySelector('.vc-sub').textContent : ''
   };
 }
-function fmt(t) { if (!isFinite(t)) return ''; const m = Math.floor(t / 60), s = Math.round(t % 60); return m + ':' + (s < 10 ? '0' : '') + s; }
 
-let group = [], gIndex = 0;
-function showItem(i) {
-  gIndex = i;
-  const d = group[i];
-  viewer.classList.remove('playing');
-  vVideo.pause(); vVideo.removeAttribute('src'); vVideo.load();
-  vPoster.src = d.poster || '';
-  vTitle.textContent = d.title || '';
-  vSub.textContent = d.sub || '';
-  // duration once metadata loads
-  const probe = document.createElement('video');
-  probe.preload = 'metadata'; probe.src = d.src;
-  probe.addEventListener('loadedmetadata', () => {
-    if (group[gIndex] && group[gIndex].src === d.src) vSub.textContent = fmt(probe.duration) + '  ·  ' + (d.sub || '');
-  });
-  vList.querySelectorAll('.viewer-thumb').forEach((t, j) => t.classList.toggle('active', j === i));
+let peekHideTimer = null, peekCard = null;
+function showPeek(card) {
+  if (player && !player.hidden) return;           // not while watching full
+  peekCard = card;
+  const d = cardInfo(card);
+  clearTimeout(peekHideTimer);
+  const r = card.getBoundingClientRect();
+  const W = Math.min(440, innerWidth * 0.34);
+  const H = W * 9 / 16;
+  const gap = 18;
+  let left = r.right + gap, side = 'right';
+  if (left + W > innerWidth - 12) { left = r.left - gap - W; side = 'left'; }   // flip if no room
+  left = Math.max(12, Math.min(left, innerWidth - W - 12));
+  let top = r.top + r.height / 2 - H / 2;
+  top = Math.max(12, Math.min(top, innerHeight - H - 12));
+  peek.style.left = left + 'px'; peek.style.top = top + 'px';
+  peek.style.width = W + 'px'; peek.style.height = H + 'px';
+  peek.classList.toggle('left', side === 'left');
+  peekTitle.textContent = d.title; peekSub.textContent = d.sub;
+  if (d.poster) peekVideo.poster = d.poster;
+  if (peekVideo.getAttribute('src') !== d.src) { peekVideo.src = d.src; }
+  peek.setAttribute('aria-hidden', 'false');
+  requestAnimationFrame(() => peek.classList.add('show'));
+  const p = peekVideo.play(); if (p && p.catch) p.catch(() => {});
 }
-function playCurrent() {
-  const d = group[gIndex];
-  vVideo.src = d.src; viewer.classList.add('playing');
-  vVideo.controls = true;
-  const p = vVideo.play(); if (p && p.catch) p.catch(() => {});
-}
-function openViewer(card) {
-  const section = card.closest('section');
-  const cards = [...section.querySelectorAll('.video-card')];
-  group = cards.map(cardData);
-  // build thumbnail rail
-  vList.innerHTML = '';
-  group.forEach((d, i) => {
-    const b = document.createElement('button');
-    b.className = 'viewer-thumb'; b.setAttribute('aria-label', d.title);
-    b.innerHTML = '<img src="' + d.poster + '" alt="" />';
-    b.addEventListener('click', () => showItem(i));
-    vList.appendChild(b);
-  });
-  showItem(cards.indexOf(card));
-  vPanel.style.transform = 'rotateY(' + BASE_RY + 'deg) rotateX(' + BASE_RX + 'deg)';
-  viewer.hidden = false;
-  document.body.style.overflow = 'hidden';
-}
-function closeViewer() {
-  vVideo.pause(); vVideo.removeAttribute('src'); vVideo.load();
-  viewer.classList.remove('playing');
-  viewer.hidden = true; document.body.style.overflow = '';
+function hidePeek() {
+  peek.classList.remove('show');
+  peekCard = null;
+  peekHideTimer = setTimeout(() => {
+    peek.setAttribute('aria-hidden', 'true');
+    peekVideo.pause();
+  }, 260);
 }
 
-// open on click; also on hover (short delay) per request
-let hoverTimer = null;
+function openPlayer(src) {
+  hidePeek();
+  playerVideo.src = src; player.hidden = false; document.body.style.overflow = 'hidden';
+  const p = playerVideo.play(); if (p && p.catch) p.catch(() => {});
+}
+function closePlayer() {
+  playerVideo.pause(); playerVideo.removeAttribute('src'); playerVideo.load();
+  player.hidden = true; document.body.style.overflow = '';
+}
+
 document.querySelectorAll('.video-card').forEach((card) => {
-  card.addEventListener('click', () => openViewer(card));
-  card.addEventListener('pointerenter', (e) => {
-    if (e.pointerType === 'touch') return;
-    hoverTimer = setTimeout(() => openViewer(card), 220);
-  });
-  card.addEventListener('pointerleave', () => { clearTimeout(hoverTimer); });
+  card.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'touch') showPeek(card); });
+  card.addEventListener('pointerleave', hidePeek);
+  card.addEventListener('click', () => openPlayer(card.getAttribute('data-src')));
 });
+// keep preview aligned if the page scrolls while hovering
+addEventListener('scroll', () => { if (peekCard) showPeek(peekCard); }, { passive: true });
 
-vPlay.addEventListener('click', playCurrent);
-vPoster.addEventListener('click', playCurrent);
-vClose.addEventListener('click', closeViewer);
-viewer.addEventListener('click', (e) => { if (e.target === viewer || e.target === vStage) closeViewer(); });
-
-// parallax: move mouse to explore
-if (!reduceMotion) {
-  vStage.addEventListener('pointermove', (e) => {
-    const r = vStage.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    vPanel.style.transform = 'rotateY(' + (BASE_RY - px * 16) + 'deg) rotateX(' + (BASE_RX + py * 12) + 'deg)';
-  });
-  vStage.addEventListener('pointerleave', () => {
-    vPanel.style.transform = 'rotateY(' + BASE_RY + 'deg) rotateX(' + BASE_RX + 'deg)';
-  });
-}
+playerClose.addEventListener('click', closePlayer);
+player.addEventListener('click', (e) => { if (e.target === player) closePlayer(); });
 
 // ---------- escape closes whatever is open ----------
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
-  if (!viewer.hidden) closeViewer();
+  if (!player.hidden) closePlayer();
   else if (!menu.hidden) closeMenu();
 });
