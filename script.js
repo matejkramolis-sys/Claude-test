@@ -192,12 +192,12 @@ function placePeek(card) {
   const ar = peekAspect(card);
   let W, H;
   if (ar < 1) {                                   // vertical (9:16-ish)
-    H = Math.min(innerHeight * 0.76, 660);
+    H = Math.min(innerHeight * 0.84, 760);
     W = H * ar;
   } else {                                        // horizontal
-    W = Math.min(innerWidth * 0.5, 720);
+    W = Math.min(innerWidth * 0.56, 840);
     H = W / ar;
-    if (H > innerHeight * 0.78) { H = innerHeight * 0.78; W = H * ar; }
+    if (H > innerHeight * 0.84) { H = innerHeight * 0.84; W = H * ar; }
   }
   const r = card.getBoundingClientRect();
   const gap = 18;
