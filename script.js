@@ -135,7 +135,7 @@ document.querySelectorAll('[data-c1]').forEach((btn) => {
   const knob = document.getElementById('onoffKnob');
   const track = knob && knob.parentElement;
   if (!knob || !track) return;
-  const LEFT = 18, RIGHT = 82;   // knob left% travel (OFF .. ON)
+  const LEFT = 27, RIGHT = 73;   // knob left% travel (OFF .. ON)
   let dragging = false;
   function fromScroll() {
     if (dragging) return;

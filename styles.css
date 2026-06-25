@@ -197,18 +197,17 @@ body.has-pointer .spotlight { opacity: 0.18; }
 .cam-hot:focus-visible { outline: 2px solid rgba(255,255,255,0.85); outline-offset: 2px; }
 .cam-hot[data-press]::after {
   content: ""; position: absolute; inset: 0; border-radius: inherit; opacity: 0;
-  background: rgba(0,0,0,0.28); box-shadow: inset 0 2px 7px rgba(0,0,0,0.65); transition: opacity 0.1s;
+  background: rgba(0,0,0,0.3); box-shadow: inset 0 2px 7px rgba(0,0,0,0.7); transition: opacity 0.08s;
 }
-.cam-hot[data-press].pressing { transform: scale(0.95); }
-.cam-hot[data-press].pressing::after { opacity: 1; }
+.cam-hot[data-press].pressing::after { opacity: 1; }   /* darken only, no scale */
 
-.menu-hit { left: 41.5%; top: 62%; width: 23%; height: 25%; border-radius: 16px; }
-.ig-hit   { left: 64.5%; top: 62%; width: 27%; height: 25%; border-radius: 16px; }
-.c1-hit   { left: 63.8%; top: 40%; width: 6.4%; height: 19%; border-radius: 50%; }
-.iso-hit  { left: 70.5%; top: 40%; width: 6.4%; height: 19%; border-radius: 50%; }
+.menu-hit { left: 46.6%; top: 62.5%; width: 20.6%; height: 19%; border-radius: 14px; }
+.ig-hit   { left: 68.4%; top: 62.5%; width: 25%;   height: 19%; border-radius: 14px; }
+.c1-hit   { left: 64.8%; top: 38.2%; width: 5.95%; height: 18.2%; border-radius: 50%; }
+.iso-hit  { left: 71.5%; top: 38.2%; width: 5.95%; height: 18.2%; border-radius: 50%; }
 
-/* C1 record LED ring */
-.c1-hit::before { content: ""; position: absolute; inset: -14%; border-radius: 50%;
+/* C1 record LED ring (centered on the button) */
+.c1-hit::before { content: ""; position: absolute; inset: -7%; border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(255,45,35,0); transition: box-shadow 0.3s; pointer-events: none; }
 .c1-hit.rec::before { animation: recPulse 1.6s ease-in-out infinite; }
 @keyframes recPulse {
@@ -216,14 +215,17 @@ body.has-pointer .spotlight { opacity: 0.18; }
   50%     { box-shadow: 0 0 0 3px rgba(255,75,58,1), 0 0 17px 3px rgba(255,75,58,1), 0 0 32px 7px rgba(255,55,42,0.75); }
 }
 
-/* OFF <-> ON slider */
-.onoff { position: absolute; left: 67.3%; top: 13.5%; width: 9.6%; height: 8%;
-  border-radius: 999px; background: linear-gradient(180deg, #07070a, #16171c);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.85), inset 0 -1px 1px rgba(255,255,255,0.05); z-index: 4; }
-.onoff-knob { position: absolute; top: 50%; left: 82%; transform: translate(-50%,-50%);
-  width: 34%; height: 150%; border-radius: 999px; cursor: grab;
-  background: radial-gradient(circle at 40% 28%, #e6e7eb, #9a9ba2 45%, #56575e);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.7); transition: left 0.12s linear; }
+/* OFF <-> ON slider — small, centered in the gap, black metallic knob */
+.onoff { position: absolute; left: 72.6%; top: 12.4%; width: 5.6%; height: 6%;
+  border-radius: 999px; background: linear-gradient(180deg, #050507, #131418);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.9), inset 0 -1px 1px rgba(255,255,255,0.05); z-index: 4; }
+.onoff-knob { position: absolute; top: 50%; left: 70%; transform: translate(-50%,-50%);
+  width: 42%; height: 150%; border-radius: 7px; cursor: grab;
+  background:
+    linear-gradient(180deg, rgba(90,92,100,0.55), rgba(0,0,0,0.45)),
+    repeating-linear-gradient(90deg, #16171b 0 1.5px, #34353c 1.5px 3px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 1px rgba(0,0,0,0.6);
+  transition: left 0.12s linear; }
 .onoff-knob:active { cursor: grabbing; }
 
 /* ISO brightness panel (slides in from the right) */
