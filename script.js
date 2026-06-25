@@ -81,48 +81,8 @@ menuClose.addEventListener('click', closeMenu);
 menu.addEventListener('click', (e) => { if (e.target === menu) closeMenu(); });
 menu.querySelectorAll('[data-jump]').forEach((a) => a.addEventListener('click', closeMenu));
 
-// ---------- power switch: the real nub rotates ON<->OFF with scroll ----------
-const pwDial = document.getElementById('pwDial');
-if (pwDial) {
-  const ON_DEG = 124, OFF_DEG = 86;   // nub points at ON (page top) .. OFF (page bottom)
-  const sync = () => {
-    const h = document.documentElement;
-    const max = h.scrollHeight - h.clientHeight;
-    const p = max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0; // 0 top(ON) .. 1 bottom(OFF)
-    pwDial.style.transform = 'rotate(' + (ON_DEG + p * (OFF_DEG - ON_DEG)) + 'deg)';
-  };
-  addEventListener('scroll', sync, { passive: true });
-  sync();
-}
-
-// ---------- C1 = record toggle (red LED ring on/off) ----------
-document.querySelectorAll('[data-c1]').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const on = btn.classList.toggle('rec');
-    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-  });
-});
-
-// ---------- dials: smooth continuous spin while hovered/held (reliable, centered) ----------
-if (!reduceMotion) {
-  document.querySelectorAll('[data-dial]').forEach((dial) => {
-    let angle = 0, spinning = false, lastT = null;
-    const SPEED = 150; // degrees per second
-    function step(t) {
-      if (!spinning) { lastT = null; return; }
-      if (lastT === null) lastT = t;
-      angle += (t - lastT) / 1000 * SPEED; lastT = t;
-      dial.style.transform = 'rotate(' + angle + 'deg)';
-      requestAnimationFrame(step);
-    }
-    const start = () => { if (!spinning) { spinning = true; requestAnimationFrame(step); } };
-    const stop  = () => { spinning = false; };   // holds its position
-    dial.addEventListener('pointerenter', start);
-    dial.addEventListener('pointerleave', stop);
-    dial.addEventListener('pointerdown', start);  // touch
-    dial.addEventListener('pointerup', stop);
-  });
-}
+// expose for the 3D camera menu (camera3d.js)
+window.cameraMenu = { open: openMenu, close: closeMenu };
 
 // ---------- on-site video player ----------
 const overlay = document.getElementById('player');
