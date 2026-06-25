@@ -93,14 +93,6 @@ document.querySelectorAll('[data-press]').forEach((el) => {
   el.addEventListener('pointercancel', release);
 });
 
-// C1 = record LED toggle (black ring -> red light)
-document.querySelectorAll('[data-c1]').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const on = btn.classList.toggle('rec');
-    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-  });
-});
-
 // ISO -> slide-out panel; higher ISO brightens the whole site
 (function () {
   const panel = document.getElementById('isoPanel');
