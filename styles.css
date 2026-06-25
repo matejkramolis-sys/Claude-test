@@ -150,8 +150,10 @@ body.has-pointer .spotlight { opacity: 0.18; }
   transition: transform 0.25s, background 0.25s; transform: translateZ(40px);
 }
 .video-card:hover .play-badge { transform: translateZ(40px) scale(1.12); background: rgba(232,225,207,0.25); }
-.video-card figcaption { margin-top: 14px; color: var(--muted); font-size: 0.92rem; transition: color 0.3s; }
-.video-card:hover figcaption { color: var(--text); }
+.video-card figcaption { margin-top: 14px; display: flex; flex-direction: column; gap: 3px; }
+.vc-title { color: var(--text); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
+.vc-sub { color: var(--muted); font-size: 0.9rem; line-height: 1.45; transition: color 0.3s; }
+.video-card:hover .vc-sub { color: #c9c9d0; }
 
 /* ---------- reveal-on-scroll ---------- */
 .reveal { opacity: 0; transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); will-change: transform, opacity; }
