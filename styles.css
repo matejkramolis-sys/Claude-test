@@ -14,7 +14,7 @@
   --metal-2: #16161a;
   --radius: 12px;
   --maxw: 1080px;
-  --bar-h: 330px;
+  --bar-h: 310px;
   font-synthesis: none;
 }
 
@@ -181,15 +181,70 @@ body.has-pointer .spotlight { opacity: 0.18; }
   pointer-events: none;
 }
 /* ============================================================
-   CAMERA MENU — real 3D (Three.js) mounts into #cam3d
+   CAMERA MENU — your photo (cut out) + working overlays
    ============================================================ */
-.cam3d {
-  pointer-events: auto;
-  width: min(820px, 96vw);
-  aspect-ratio: 2.6 / 1;
-  filter: drop-shadow(0 18px 40px rgba(0,0,0,0.55));
+.cam-photo {
+  pointer-events: auto; position: relative;
+  width: min(900px, 96vw);
+  aspect-ratio: 1374 / 450;
+  filter: drop-shadow(0 16px 38px rgba(0,0,0,0.6));
 }
-.cam3d canvas { width: 100% !important; height: 100% !important; display: block; }
+.cam-base { width: 100%; height: 100%; object-fit: contain; display: block; -webkit-user-drag: none; user-select: none; }
+
+/* clickable zones */
+.cam-hot { position: absolute; border: none; background: transparent; cursor: pointer; padding: 0;
+  border-radius: 12px; z-index: 4; transition: transform 0.08s ease; }
+.cam-hot:focus-visible { outline: 2px solid rgba(255,255,255,0.85); outline-offset: 2px; }
+.cam-hot[data-press]::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; opacity: 0;
+  background: rgba(0,0,0,0.28); box-shadow: inset 0 2px 7px rgba(0,0,0,0.65); transition: opacity 0.1s;
+}
+.cam-hot[data-press].pressing { transform: scale(0.95); }
+.cam-hot[data-press].pressing::after { opacity: 1; }
+
+.menu-hit { left: 41.5%; top: 62%; width: 23%; height: 25%; border-radius: 16px; }
+.ig-hit   { left: 64.5%; top: 62%; width: 27%; height: 25%; border-radius: 16px; }
+.c1-hit   { left: 63.8%; top: 40%; width: 6.4%; height: 19%; border-radius: 50%; }
+.iso-hit  { left: 70.5%; top: 40%; width: 6.4%; height: 19%; border-radius: 50%; }
+
+/* C1 record LED ring */
+.c1-hit::before { content: ""; position: absolute; inset: -14%; border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(255,45,35,0); transition: box-shadow 0.3s; pointer-events: none; }
+.c1-hit.rec::before { animation: recPulse 1.6s ease-in-out infinite; }
+@keyframes recPulse {
+  0%,100% { box-shadow: 0 0 0 3px rgba(255,45,35,0.95), 0 0 11px 2px rgba(255,50,38,0.85), 0 0 22px 5px rgba(255,45,35,0.5); }
+  50%     { box-shadow: 0 0 0 3px rgba(255,75,58,1), 0 0 17px 3px rgba(255,75,58,1), 0 0 32px 7px rgba(255,55,42,0.75); }
+}
+
+/* OFF <-> ON slider */
+.onoff { position: absolute; left: 67.3%; top: 13.5%; width: 9.6%; height: 8%;
+  border-radius: 999px; background: linear-gradient(180deg, #07070a, #16171c);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.85), inset 0 -1px 1px rgba(255,255,255,0.05); z-index: 4; }
+.onoff-knob { position: absolute; top: 50%; left: 82%; transform: translate(-50%,-50%);
+  width: 34%; height: 150%; border-radius: 999px; cursor: grab;
+  background: radial-gradient(circle at 40% 28%, #e6e7eb, #9a9ba2 45%, #56575e);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.7); transition: left 0.12s linear; }
+.onoff-knob:active { cursor: grabbing; }
+
+/* ISO brightness panel (slides in from the right) */
+.iso-panel { position: fixed; top: 50%; right: 0; transform: translate(105%, -50%);
+  z-index: 52; width: 132px; padding: 16px 14px; border-radius: 16px 0 0 16px;
+  background: linear-gradient(180deg, #1a1b20, #0d0d10); border: 1px solid #2a2b31; border-right: none;
+  box-shadow: -18px 0 50px rgba(0,0,0,0.6); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+.iso-panel.open { transform: translate(0, -50%); }
+.iso-panel h4 { margin: 0 0 12px; font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent);
+  text-align: center; text-transform: uppercase; }
+.iso-list { display: flex; flex-direction: column-reverse; gap: 5px; }  /* low at bottom, high at top */
+.iso-opt { border: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 0.92rem;
+  color: var(--muted); background: #15161b; border: 1px solid #26272d; border-radius: 8px; padding: 8px 0;
+  text-align: center; transition: background 0.18s, color 0.18s, transform 0.1s; font-variant-numeric: tabular-nums; }
+.iso-opt:hover { color: var(--text); border-color: #43444c; }
+.iso-opt.active { background: linear-gradient(180deg, var(--accent), #cdbf9a); color: #1a1712; border-color: var(--accent); }
+.iso-opt:active { transform: scale(0.96); }
+
+/* exposure overlay — ISO brightens the whole site */
+.expo-overlay { position: fixed; inset: 0; z-index: 5; pointer-events: none;
+  background: #fff; mix-blend-mode: screen; opacity: 0; transition: opacity 0.45s ease; }
 
 /* ---------- menu overlay ---------- */
 .menu-overlay {

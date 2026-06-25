@@ -23,6 +23,7 @@
   <!-- animated background -->
   <div class="bg-aurora" aria-hidden="true"></div>
   <div class="bg-grain" aria-hidden="true"></div>
+  <div id="expo" class="expo-overlay" aria-hidden="true"></div>
 
   <!-- ============ HERO ============ -->
   <section id="top" class="hero">
@@ -110,10 +111,30 @@
     <p class="copyright">© <span id="year"></span> TeeCee</p>
   </footer>
 
-  <!-- ============ CAMERA-TOP MENU (real 3D, Three.js) ============ -->
+  <!-- ============ CAMERA-TOP MENU (your photo + working overlays) ============ -->
   <div class="camera-bar" role="navigation" aria-label="Camera menu">
-    <div class="cam3d" id="cam3d"></div>
+    <div class="cam-photo">
+      <img class="cam-base" src="assets/camera-top.png" alt="Camera top menu" />
+
+      <!-- OFF <-> ON slider -->
+      <span class="onoff" aria-hidden="true"><span class="onoff-knob" id="onoffKnob"></span></span>
+
+      <!-- C1 record (red LED toggle) -->
+      <button class="cam-hot c1-hit" data-press data-c1 aria-pressed="false" aria-label="C1 record"></button>
+      <!-- ISO (opens brightness panel) -->
+      <button class="cam-hot iso-hit" data-press data-iso aria-label="ISO brightness"></button>
+
+      <!-- MENU + INSTAGRAM -->
+      <button class="cam-hot menu-hit" data-press data-action="menu" aria-label="Open menu"></button>
+      <a class="cam-hot ig-hit" data-press href="https://www.instagram.com/t.castvaj" target="_blank" rel="noopener" aria-label="Instagram"></a>
+    </div>
   </div>
+
+  <!-- ISO brightness panel -->
+  <aside id="isoPanel" class="iso-panel" aria-label="ISO">
+    <h4>ISO</h4>
+    <div class="iso-list" id="isoList"></div>
+  </aside>
 
   <!-- ============ MENU OVERLAY ============ -->
   <div id="menu" class="menu-overlay" hidden>
@@ -135,8 +156,6 @@
     </div>
   </div>
 
-  <script src="assets/three.min.js"></script>
   <script src="script.js"></script>
-  <script src="camera3d.js"></script>
 </body>
 </html>

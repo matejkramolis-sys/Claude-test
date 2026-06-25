@@ -81,8 +81,82 @@ menuClose.addEventListener('click', closeMenu);
 menu.addEventListener('click', (e) => { if (e.target === menu) closeMenu(); });
 menu.querySelectorAll('[data-jump]').forEach((a) => a.addEventListener('click', closeMenu));
 
-// expose for the 3D camera menu (camera3d.js)
-window.cameraMenu = { open: openMenu, close: closeMenu };
+// ============ camera controls (photo overlays) ============
+
+// press-in animation for any [data-press] control
+document.querySelectorAll('[data-press]').forEach((el) => {
+  const press = () => el.classList.add('pressing');
+  const release = () => el.classList.remove('pressing');
+  el.addEventListener('pointerdown', press);
+  el.addEventListener('pointerup', release);
+  el.addEventListener('pointerleave', release);
+  el.addEventListener('pointercancel', release);
+});
+
+// C1 = record LED toggle (black ring -> red light)
+document.querySelectorAll('[data-c1]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const on = btn.classList.toggle('rec');
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+});
+
+// ISO -> slide-out panel; higher ISO brightens the whole site
+(function () {
+  const panel = document.getElementById('isoPanel');
+  const list = document.getElementById('isoList');
+  const expo = document.getElementById('expo');
+  if (!panel || !list || !expo) return;
+  const stops = [100, 125, 160, 200, 250, 320, 400, 500];
+  stops.forEach((iso, i) => {
+    const b = document.createElement('button');
+    b.className = 'iso-opt'; b.textContent = iso; b.dataset.i = i;
+    b.addEventListener('click', () => setISO(i));
+    list.appendChild(b);
+  });
+  function setISO(i) {
+    const f = i / (stops.length - 1);            // 0 (ISO100) .. 1 (ISO500)
+    expo.style.opacity = (f * 0.42).toFixed(3);  // brighten the site
+    list.querySelectorAll('.iso-opt').forEach((o) => o.classList.toggle('active', +o.dataset.i === i));
+  }
+  setISO(0);
+  document.querySelectorAll('[data-iso]').forEach((btn) => {
+    btn.addEventListener('click', (e) => { e.stopPropagation(); panel.classList.toggle('open'); });
+  });
+  document.addEventListener('click', (e) => {
+    if (panel.classList.contains('open') && !panel.contains(e.target) && !e.target.closest('[data-iso]')) {
+      panel.classList.remove('open');
+    }
+  });
+})();
+
+// OFF <-> ON slider: follows scroll (ON at top, OFF at bottom); draggable to scrub
+(function () {
+  const knob = document.getElementById('onoffKnob');
+  const track = knob && knob.parentElement;
+  if (!knob || !track) return;
+  const LEFT = 18, RIGHT = 82;   // knob left% travel (OFF .. ON)
+  let dragging = false;
+  function fromScroll() {
+    if (dragging) return;
+    const h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0;
+    knob.style.left = (RIGHT - p * (RIGHT - LEFT)) + '%';   // top -> ON (right)
+  }
+  function scrub(clientX) {
+    const r = track.getBoundingClientRect();
+    let f = (clientX - r.left) / r.width; f = Math.min(1, Math.max(0, f));  // 0 OFF .. 1 ON
+    knob.style.left = (LEFT + f * (RIGHT - LEFT)) + '%';
+    const h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+    window.scrollTo({ top: (1 - f) * max, behavior: 'auto' });             // ON -> top
+  }
+  addEventListener('scroll', fromScroll, { passive: true });
+  fromScroll();
+  knob.addEventListener('pointerdown', (e) => { dragging = true; knob.setPointerCapture(e.pointerId); e.preventDefault(); });
+  knob.addEventListener('pointermove', (e) => { if (dragging) scrub(e.clientX); });
+  knob.addEventListener('pointerup', () => { dragging = false; });
+  track.addEventListener('pointerdown', (e) => { if (e.target === track) scrub(e.clientX); });
+})();
 
 // ---------- on-site video player ----------
 const overlay = document.getElementById('player');
